@@ -60,8 +60,8 @@ export class ReadingListEffects implements OnInitEffects {
     concatMap(({ item }) => {
       const updateBook = {
         bookId: item.bookId,
-        finished: true,
-        finishedDate: new Date().toISOString(),
+        finished:item.finished,
+        finishedDate:item.finishedDate
       };
       return this.http
         .put(`/api/reading-list/${item.bookId}/finished`, updateBook)
