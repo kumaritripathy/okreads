@@ -12,3 +12,9 @@ describe('When: I use the reading list feature', () => {
     );
   });
 });
+
+it('Then: I should set the reading list state back to the previous state',()=>{
+  cy.get('[data-testing="want_to_read_btn"]').click();
+
+  cy.get('[data-testing="want_to_read_btn"]').showSnackbar();
+})
