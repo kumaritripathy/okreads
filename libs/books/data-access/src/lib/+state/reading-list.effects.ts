@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, exhaustMap, map, switchMap } from 'rxjs/operators';
+import { catchError, concatMap, exhaustMap, map } from 'rxjs/operators';
 import { ReadingListItem } from '@tmo/shared/models';
 import * as ReadingListActions from './reading-list.actions';
 
@@ -54,26 +54,31 @@ export class ReadingListEffects implements OnInitEffects {
     )
   );
 
-  updateBookAPI$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ReadingListActions.updateBookAPISucess),
-      concatMap(({ item }) => {
-        const finishedBook = {
-          ...item,
-          finished:true,
-          finishedDate: new Date().toISOString() 
-        };
-        return this.http.put(`/api/reading-list/${item.bookId}/finished`,finishedBook).pipe(
+  updateBook$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(ReadingListActions.updateReadingList),
+    concatMap(({ item }) => {
+      const updateBook = {
+        bookId: item.bookId,
+        finished: true,
+        finishedDate: new Date().toISOString(),
+      };
+      return this.http
+        .put(`/api/reading-list/${item.bookId}/finished`, updateBook)
+        .pipe(
           map(() =>
-            ReadingListActions.successUpdateBook({ item })
+            ReadingListActions.confirmedUpdateToReadingList({
+              item,
+              ...updateBook,
+            })
           ),
-          catchError((error) =>
-            of(ReadingListActions.failedUpdateBook(error))
+          catchError((err) =>
+            of(ReadingListActions.failedUpdateToReadingList(err))
           )
         );
-      })
-    )
-  );
+    })
+  )
+);
 
   ngrxOnInitEffects() {
     return ReadingListActions.init();
