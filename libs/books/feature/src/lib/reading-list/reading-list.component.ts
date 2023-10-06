@@ -20,8 +20,6 @@ export class ReadingListComponent {
   }
 
   updateReadingList(item) {
-    item.finished = true,
-      item.finishedDate = new Date().toISOString(),
       this.store.dispatch(updateReadingList({ item }));
   }
 }
