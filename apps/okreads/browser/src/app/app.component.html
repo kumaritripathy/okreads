@@ -17,7 +17,7 @@
       </div>
     </header>
     <main>
-      <tmo-book-search></tmo-book-search>
+      <tmo-book-search [readingList]="readingList$|async"></tmo-book-search>
     </main>
   </mat-drawer-content>
   <mat-drawer #drawer mode="over" position="end">
@@ -29,7 +29,7 @@
         </button>
       </h2>
       <div class="reading-list-content">
-        <tmo-reading-list></tmo-reading-list>
+        <tmo-reading-list [readingList]="readingList$|async"></tmo-reading-list>
       </div>
     </div>
   </mat-drawer>

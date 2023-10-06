@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getReadingList, removeFromReadingList, updateReadingList } from '@tmo/books/data-access';
 
@@ -8,8 +8,7 @@ import { getReadingList, removeFromReadingList, updateReadingList } from '@tmo/b
   styleUrls: ['./reading-list.component.scss']
 })
 export class ReadingListComponent {
-  readingList$ = this.store.select(getReadingList);
-
+  @Input() readingList = [];
   constructor(private readonly store: Store) {}
 
   removeFromReadingList(item) {

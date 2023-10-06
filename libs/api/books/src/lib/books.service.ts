@@ -11,7 +11,6 @@ export class BooksService {
     if (!term) {
       throw new Error('Missing serach term');
     }
-
     return this.http
       .get(`https://www.googleapis.com/books/v1/volumes?q=${term}`)
       .pipe(
@@ -26,7 +25,7 @@ export class BooksService {
               publishedDate: item.volumeInfo?.publishedDate
                 ? new Date(item.volumeInfo?.publishedDate).toISOString()
                 : undefined,
-              coverUrl: item.volumeInfo?.imageLinks?.thumbnail
+              coverUrl: item.volumeInfo?.imageLinks?.thumbnail,
             };
           });
         })
