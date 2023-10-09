@@ -11,7 +11,7 @@
       <div class="reading-list-item--details--author">{{b.finishedDate}}</div>
     </div>
     <div>
-      <button mat-raised-button color="{{b.finished ? 'disabled': 'primary' }}"  [disabled]="b.finished" matTooltip="Place order for this book" (click)="updateReadingList(b)">
+      <button data-testing="bookfinishedbutton" mat-raised-button color="{{b.finished ? 'disabled': 'primary' }}"  [disabled]="b.finished" matTooltip="Place order for this book" (click)="updateReadingList(b)">
         {{b.finished ? 'Finished': 'Order' }}   
       </button>
     </div>

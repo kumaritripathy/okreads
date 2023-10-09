@@ -71,7 +71,7 @@ export class ReadingListEffects implements OnInitEffects {
               item,
               ...updateBook,
             })
-          ),
+          ),       
           catchError((err) =>
             of(ReadingListActions.failedUpdateToReadingList(err))
           )
