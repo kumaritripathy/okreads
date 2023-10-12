@@ -156,11 +156,17 @@ Ready to submit? Please review the checklist below.
 3. Are lint, test, e2e passing?
 
 Once you are done, send the link to your repo to your T-Mobile manager for evaluation.
+
 TASK-2
+
 ![image](https://github.com/kumaritripathy/okreads/assets/146412376/bdc5d962-fdd9-44fb-8bae-ba2de7db16eb)
+
 TASk-3
+
 ![image](https://github.com/kumaritripathy/okreads/assets/146412376/68876eab-446d-4d06-9972-f384f09def3d)
+
 TASK-4
+
 ![image](https://github.com/kumaritripathy/okreads/assets/146412376/77ca4ee1-4443-4f93-a0a9-3c7963d073d4)
 ![image](https://github.com/kumaritripathy/okreads/assets/146412376/88185bec-6ae2-473e-ba74-d42d3b69a5c5)
 
