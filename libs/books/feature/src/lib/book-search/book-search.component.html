@@ -1,4 +1,4 @@
-<form [formGroup]="searchForm" (submit)="searchBooks()">
+<form [formGroup]="searchForm" (ngSubmit)="searchBooks()">
   <mat-form-field floatLabel="never">
     <input
       autoFocus
@@ -7,35 +7,35 @@
       placeholder="Search for books to add to your reading list"
       formControlName="term"
     />
-    <button mat-icon-button matSuffix>
+    <button aria-label="search" mat-icon-button matSuffix>
       <mat-icon>search</mat-icon>
     </button>
   </mat-form-field>
 </form>
 
-<ng-container *ngIf="searchTerm; else empty">
+<ng-container *ngIf="searchForm.value.term; else empty">
   <div class="book-grid">
-    <div class="book" data-testing="book-item" *ngFor="let b of books$|async">
+    <div class="book" data-testing="book-item" *ngFor="let bookItem of books$|async">
       <div class="book--title">
-        {{ b.title }}
+        {{ bookItem.title }}
       </div>
       <div class="book--content">
         <div class="book--content--cover">
-          <img src="{{ b.coverUrl }}" loading="lazy" alt="Book Content Loading"/>
+          <img src="{{ bookItem.coverUrl }}" loading="lazy" alt="Book Content Loading"/>
         </div>
         <div class="book--content--info">
-          <div><strong>Author:</strong> {{ b.authors.join(',') }}</div>
-          <div><strong>Publisher:</strong> {{ b.publisher }}</div>
+          <div><strong>Author:</strong> {{ bookItem.authors.join(',') }}</div>
+          <div><strong>Publisher:</strong> {{ bookItem.publisher }}</div>
           <div>
-            <strong>Published:</strong> {{ formatDate(b.publishedDate) }}
+            <strong>Published:</strong> {{ bookItem.publishedDate | date:'shortDate'}}
           </div>
-          <p [innerHTML]="b.description"></p>
+          <p>{{bookItem.description}}</p>
           <div>
             <button
               mat-flat-button
               color="primary"
               (click)="addBookToReadingList(b)"
-              [disabled]="b.isAdded"
+              [disabled]="bookItem.isAdded"
               id="want_to_read" aria-label="Want to Read"
             >
               Want to Read
@@ -49,7 +49,7 @@
 <ng-template #empty>
   <div class="empty">
     <p>
-      Try searching for a topic, for example "<a (click)="searchExample()"
+      Try searching for a topic, for example "<a aria-label="JavaScript" (click)="searchExample()"
         >JavaScript</a
       >".
     </p>
