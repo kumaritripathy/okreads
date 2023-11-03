@@ -7,7 +7,7 @@ import { BookSearchComponent } from './book-search.component';
 import { Store } from '@ngrx/store';
 import { Book } from '@tmo/shared/models';
 
-describe('ProductsListComponent', () => {
+describe('BookSearchComponent', () => {
   let component: BookSearchComponent;
   let fixture: ComponentFixture<BookSearchComponent>;
 
@@ -23,30 +23,26 @@ describe('ProductsListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should component defined', () => {
     expect(component).toBeDefined();
   });
 
-  describe('addBookToReadingList', () => {
-    it('makes expected calls', () => {
+
+    it('Should add books to the reading list', () => {
       const storeStub: Store = fixture.debugElement.injector.get(Store);
       const bookStub: Book = <any>{};
       spyOn(storeStub, 'dispatch').and.callThrough();
       component.addBookToReadingList(bookStub);
       expect(storeStub.dispatch).toHaveBeenCalled();
     });
-  });
 
-  describe('searchExample', () => {
-    it('makes expected calls', () => {
+    it('Should allow user to enter book name', () => {
       spyOn(component, 'searchBooks').and.callThrough();
       component.searchExample();
       expect(component.searchBooks).toHaveBeenCalled();
     });
-  });
-
-  describe('searchBooks', () => {
-    it('makes expected calls', () => {
+  
+    it('Should list book based on search user enter', () => {
       const storeStub: Store = fixture.debugElement.injector.get(Store);
       spyOn(component, 'searchBooks').and.callThrough();
       spyOn(storeStub, 'dispatch').and.callThrough();
@@ -54,5 +50,5 @@ describe('ProductsListComponent', () => {
       expect(component.searchBooks).toHaveBeenCalled();
       expect(storeStub.dispatch).toHaveBeenCalled();
     });
-  });
+ 
 });

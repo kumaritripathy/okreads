@@ -7,8 +7,8 @@ import {
 } from './reading-list.reducer';
 import { createBook, createReadingListItem } from '@tmo/shared/testing';
 
-describe('Books Reducer', () => {
-  describe('valid Books actions', () => {
+describe('Reading list reducer', () => {
+  describe('Valid reading list actions', () => {
     let state: State;
 
     beforeEach(() => {
@@ -18,7 +18,7 @@ describe('Books Reducer', () => {
       );
     });
 
-    it('loadBooksSuccess should load books from reading list', () => {
+    it('Should load reading list when new reading list was created', () => {
       const list = [
         createReadingListItem('A'),
         createReadingListItem('B'),
@@ -32,7 +32,7 @@ describe('Books Reducer', () => {
       expect(result.ids.length).toEqual(3);
     });
 
-    it('failedAddToReadingList should undo book addition to the state', () => {
+    it('Should undo the book removal when book removal failed', () => {
       const action = ReadingListActions.failedAddToReadingList({
         book: createBook('B')
       });
