@@ -9,5 +9,10 @@
     {
       "path": "./tsconfig.lib.json"
     }
-  ]
+  ],
+  
+    "angularCompilerOptions": {
+      "strictTemplates": false
+    }
+  
 }

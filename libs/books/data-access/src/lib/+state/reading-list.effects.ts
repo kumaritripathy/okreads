@@ -8,6 +8,7 @@ import * as ReadingListActions from './reading-list.actions';
 import { TypedAction } from '@ngrx/store/src/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
+import { UndoActionConstant} from '@tmo/shared/models';
 
 @Injectable()
 export class ReadingListEffects implements OnInitEffects {
@@ -15,7 +16,7 @@ export class ReadingListEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(ReadingListActions.init),
       exhaustMap(() =>
-        this.http.get<ReadingListItem[]>('/api/reading-list').pipe(
+        this.http.get<ReadingListItem[]>(UndoActionConstant.API.READING_LIST_API).pipe(
           map((data) =>
             ReadingListActions.loadReadingListSuccess({ list: data })
           ),
@@ -31,12 +32,12 @@ export class ReadingListEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(ReadingListActions.addToReadingList),
       concatMap(({ book }) =>
-        this.http.post('/api/reading-list', book).pipe(
+        this.http.post(UndoActionConstant.API.READING_LIST_API, book).pipe(
           map(() => {
             this.showSnackbar(
-              `The Book ${book.title} is added to reading List`,
-              4000,
-              'Undo',
+              `${book.title} ${UndoActionConstant.SNACKBAR_CONSTANTS.BOOK_ADDED_TEXT}`,
+              UndoActionConstant.SNACKBAR_CONSTANTS.DURATION,
+              UndoActionConstant.SNACKBAR_CONSTANTS.UNDO,
               book.title,
               ReadingListActions.removeFromReadingList({
                 item: { bookId: book.id, ...book },
@@ -56,11 +57,11 @@ export class ReadingListEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(ReadingListActions.removeFromReadingList),
       concatMap(({ item }) =>
-        this.http.delete(`/api/reading-list/${item.bookId}`).pipe(
+        this.http.delete(`${UndoActionConstant.API.READING_LIST_API}/${item.bookId}`).pipe(
           map(() => {
             this.showSnackbar(
-              `The Book ${item.title} is removed from the reading List`,
-              4000,
+              `${item.title}${UndoActionConstant.SNACKBAR_CONSTANTS.BOOK_REMOVED_TEXT}`,
+              UndoActionConstant.SNACKBAR_CONSTANTS.DURATION,
               '',
               item.title
             );
@@ -86,7 +87,7 @@ export class ReadingListEffects implements OnInitEffects {
     });
     snackbar.onAction().subscribe(() => {
       this.store.dispatch(action);
-      this.showSnackbar(`Book ${bookName} removed successfully`);
+      this.showSnackbar(`${bookName} ${UndoActionConstant.SNACKBAR_CONSTANTS.BOOK_REMOVED_TEXT}`);
     });
   }
   ngrxOnInitEffects() {

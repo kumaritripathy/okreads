@@ -8,7 +8,7 @@ import {
   searchBooks
 } from '@tmo/books/data-access';
 import { FormBuilder } from '@angular/forms';
-import { Book } from '@tmo/shared/models';
+import { Book,UndoActionConstant} from '@tmo/shared/models';
 
 @Component({
   selector: 'tmo-book-search',
@@ -20,7 +20,7 @@ export class BookSearchComponent implements OnInit {
   searchForm = this.fb.group({
     term: ''
   });
-
+  readonly searchConstant = UndoActionConstant;
   constructor(
     private readonly store: Store,
     private readonly fb: FormBuilder
