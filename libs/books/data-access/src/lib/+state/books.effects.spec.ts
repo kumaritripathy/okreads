@@ -7,7 +7,7 @@ import { createBook, SharedTestingModule } from '@tmo/shared/testing';
 import { BooksEffects } from './books.effects';
 import * as BooksActions from './books.actions';
 import { HttpTestingController } from '@angular/common/http/testing';
-import { UndoActionConstant } from '@tmo/shared/models';
+import * as BookConstant from '@tmo/shared/models';
 
 describe('BooksEffects', () => {
   let actions: ReplaySubject<any>;
@@ -28,7 +28,7 @@ describe('BooksEffects', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  describe('loadBooks$', () => {
+  describe('Load Books', () => {
     it('should work', done => {
       actions = new ReplaySubject();
       actions.next(BooksActions.searchBooks({ term: '' }));
@@ -40,7 +40,7 @@ describe('BooksEffects', () => {
         done();
       });
 
-      httpMock.expectOne(UndoActionConstant.API.BOOKS_SEARCH_API).flush([createBook('A')]);
+      httpMock.expectOne(BookConstant.API.BOOKS_SEARCH_API).flush([createBook('A')]);
     });
   });
 });

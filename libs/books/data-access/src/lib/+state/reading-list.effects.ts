@@ -9,6 +9,7 @@ import { TypedAction } from '@ngrx/store/src/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { UndoActionConstant} from '@tmo/shared/models';
+import * as BookConstant from '@tmo/shared/models';
 
 @Injectable()
 export class ReadingListEffects implements OnInitEffects {
@@ -16,7 +17,7 @@ export class ReadingListEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(ReadingListActions.init),
       exhaustMap(() =>
-        this.http.get<ReadingListItem[]>(UndoActionConstant.API.READING_LIST_API).pipe(
+        this.http.get<ReadingListItem[]>(BookConstant.API.READING_LIST_API).pipe(
           map((data) =>
             ReadingListActions.loadReadingListSuccess({ list: data })
           ),
@@ -32,7 +33,7 @@ export class ReadingListEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(ReadingListActions.addToReadingList),
       concatMap(({ book }) =>
-        this.http.post(UndoActionConstant.API.READING_LIST_API, book).pipe(
+        this.http.post(BookConstant.API.READING_LIST_API, book).pipe(
           map(() => {
             this.showSnackbar(
               `${book.title} ${UndoActionConstant.SNACKBAR_CONSTANTS.BOOK_ADDED_TEXT}`,
@@ -57,7 +58,7 @@ export class ReadingListEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(ReadingListActions.removeFromReadingList),
       concatMap(({ item }) =>
-        this.http.delete(`${UndoActionConstant.API.READING_LIST_API}/${item.bookId}`).pipe(
+        this.http.delete(`${BookConstant.API.READING_LIST_API}/${item.bookId}`).pipe(
           map(() => {
             this.showSnackbar(
               `${item.title}${UndoActionConstant.SNACKBAR_CONSTANTS.BOOK_REMOVED_TEXT}`,

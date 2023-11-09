@@ -15,27 +15,27 @@
 
 <ng-container *ngIf="searchTerm; else empty">
   <div class="book-grid" data-testing="books-list">
-    <div class="book" data-testing="book-item" *ngFor="let b of books$|async">
+    <div class="book" data-testing="book-item" *ngFor="let book of books$|async">
       <div class="book--title">
-        {{ b.title }}
+        {{ book.title }}
       </div>
       <div class="book--content">
         <div class="book--content--cover">
-          <img src="{{ b.coverUrl }}" loading="lazy" alt="Book Content Loading"/>
+          <img src="{{ book.coverUrl }}" loading="lazy" alt="Book Content Loading"/>
         </div>
         <div class="book--content--info">
-          <div data-testing="book-author-name"><strong>{{searchConstant.BOOK_SEARCH.AUTHOR}}:</strong> {{ b.authors.join(',') }}</div>
-          <div><strong>{{searchConstant.BOOK_SEARCH.PUBLISHER}}:</strong> {{ b.publisher }}</div>
+          <div data-testing="book-author-name"><strong>{{searchConstant.BOOK_SEARCH.AUTHOR}}:</strong> {{book.authors.join(',') }}</div>
+          <div><strong>{{searchConstant.BOOK_SEARCH.PUBLISHER}}:</strong> {{ book.publisher }}</div>
           <div  data-testing="book-published-date">
-            <strong>{{searchConstant.BOOK_SEARCH.PUBLISHED}}:</strong> {{ formatDate(b.publishedDate) }}
+            <strong>{{searchConstant.BOOK_SEARCH.PUBLISHED}}:</strong> {{ formatDate(book.publishedDate) }}
           </div>
-          <p  data-testing="book-description" [innerHTML]="b.description"></p>
+          <p  data-testing="book-description" [innerHTML]="book.description"></p>
           <div>
             <button
               mat-flat-button
               color="primary"
-              (click)="addBookToReadingList(b)"
-              [disabled]="b.isAdded"
+              (click)="addBookToReadingList(book)"
+              [disabled]="book.isAdded"
               id="want_to_read" aria-label="Want to Read"
               data-testing="add-book"
             >

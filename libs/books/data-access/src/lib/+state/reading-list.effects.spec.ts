@@ -7,9 +7,10 @@ import { HttpTestingController } from '@angular/common/http/testing';
 import { SharedTestingModule, createBook, createReadingListItem } from '@tmo/shared/testing';
 import { ReadingListEffects } from './reading-list.effects';
 import * as ReadingListActions from './reading-list.actions';
-import { Book, ReadingListItem, UndoActionConstant} from '@tmo/shared/models';
+import { Book, ReadingListItem} from '@tmo/shared/models';
 import { Action } from '@ngrx/store';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import * as BookConstant from '@tmo/shared/models';
 
 describe('ToReadEffects', () => {
   let actions: Observable<Action>;
@@ -39,7 +40,7 @@ describe('ToReadEffects', () => {
         );
         done();
       });
-      httpMock.expectOne(UndoActionConstant.API.READING_LIST_API).flush([]);
+      httpMock.expectOne(BookConstant.API.READING_LIST_API).flush([]);
     });
 
     it('should dispatch confirmedAddToReadingList from the reading list', (done) => {
@@ -48,14 +49,13 @@ describe('ToReadEffects', () => {
       effects = TestBed.inject(ReadingListEffects);
       console.log(effects);
       effects.addBook$.subscribe((action) => {
-        console.log(action);
         expect(action.type).toEqual(
           "[Reading List API] Confirmed add to list"
         );
         done();
       });
       httpMock
-        .expectOne(UndoActionConstant.API.READING_LIST_API)
+        .expectOne(BookConstant.API.READING_LIST_API)
         .flush([book]);
     });
 
@@ -71,7 +71,7 @@ describe('ToReadEffects', () => {
         done();
       });
       httpMock
-        .expectOne(UndoActionConstant.API.READING_LIST_API)
+        .expectOne(BookConstant.API.READING_LIST_API)
         .error(new ErrorEvent('error'));
     });
 
@@ -90,7 +90,7 @@ describe('ToReadEffects', () => {
       });
 
       httpMock
-        .expectOne(`${UndoActionConstant.API.READING_LIST_API}/${item.bookId}`)
+        .expectOne(`${BookConstant.API.READING_LIST_API}/${item.bookId}`)
         .flush([item]);
     });
 
@@ -107,7 +107,7 @@ describe('ToReadEffects', () => {
       });
 
       httpMock
-        .expectOne(`${UndoActionConstant.API.READING_LIST_API}/${item.bookId}`)
+        .expectOne(`${BookConstant.API.READING_LIST_API}/${item.bookId}`)
         .error(new ErrorEvent('error'));
     });
   });
