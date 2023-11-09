@@ -7,7 +7,8 @@ import {
   searchBooks
 } from '@tmo/books/data-access';
 import { FormBuilder } from '@angular/forms';
-import { Book } from '@tmo/shared/models';
+import { Book,okreadsConstant} from '@tmo/shared/models';
+
 
 @Component({
   selector: 'tmo-book-search',
@@ -16,6 +17,7 @@ import { Book } from '@tmo/shared/models';
 })
 export class BookSearchComponent {
   books$ = this.store.select(getAllBooks);
+  bookSearchConstant = okreadsConstant;
   searchForm = this.formBuilder.group({
     term: ''
   });

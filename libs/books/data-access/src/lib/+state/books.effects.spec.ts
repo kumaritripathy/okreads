@@ -7,7 +7,7 @@ import { createBook, SharedTestingModule } from '@tmo/shared/testing';
 import { BooksEffects } from './books.effects';
 import * as BooksActions from './books.actions';
 import { HttpTestingController } from '@angular/common/http/testing';
-
+import { okreadsConstant } from '@tmo/shared/models';
 describe('BooksEffects', () => {
   let actions: ReplaySubject<any>;
   let effects: BooksEffects;
@@ -39,7 +39,7 @@ describe('BooksEffects', () => {
         done();
       });
 
-      httpMock.expectOne('/api/books/search?q=').flush([createBook('A')]);
+      httpMock.expectOne(okreadsConstant.API.BOOKS_SEARCH_API).flush([createBook('A')]);
     });
   });
 });

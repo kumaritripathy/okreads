@@ -4,11 +4,11 @@
       autoFocus
       matInput
       type="search"
-      placeholder="Search for books to add to your reading list"
+      placeholder="{{bookSearchConstant.BOOK_SEARCH.PLACEHOLDER_TEXT}}"
       formControlName="term"
     />
     <button aria-label="search" mat-icon-button matSuffix>
-      <mat-icon>search</mat-icon>
+      <mat-icon>{{bookSearchConstant.BOOK_SEARCH.SEARCH}}</mat-icon>
     </button>
   </mat-form-field>
 </form>
@@ -24,10 +24,10 @@
           <img src="{{ bookItem.coverUrl }}" loading="lazy" alt="Book Content Loading"/>
         </div>
         <div class="book--content--info">
-          <div><strong>Author:</strong> {{ bookItem.authors.join(',') }}</div>
-          <div><strong>Publisher:</strong> {{ bookItem.publisher }}</div>
+          <div><strong>{{bookSearchConstants.BOOK_SEARCH.AUTHOR}}:</strong> {{ bookItem.authors.join(',') }}</div>
+          <div><strong>{{bookSearchConstants.BOOK_SEARCH.PUBLISHER}}:</strong> {{ bookItem.publisher }}</div>
           <div>
-            <strong>Published:</strong> {{ bookItem.publishedDate | date:'shortDate'}}
+            <strong>{{bookSearchConstants.BOOK_SEARCH.PUBLISHED}}:</strong> {{ bookItem.publishedDate | date:'shortDate'}}
           </div>
           <p>{{bookItem.description}}</p>
           <div>
@@ -38,7 +38,7 @@
               [disabled]="bookItem.isAdded"
               id="want_to_read" aria-label="Want to Read"
             >
-              Want to Read
+            {{bookSearchConstants.BOOK_SEARCH.WANT_TO_READ}}
             </button>
           </div>
         </div>
@@ -49,8 +49,8 @@
 <ng-template #empty>
   <div class="empty">
     <p>
-      Try searching for a topic, for example "<a aria-label="JavaScript" (click)="searchExample()"
-        >JavaScript</a
+      {{bookSearchConstants.BOOK_SEARCH.SEARCH_EXAMPLE_TEXT}}<a aria-label="JavaScript" (click)="searchExample()"
+        >{{bookSearchConstants.BOOK_SEARCH.JAVASCRIPT}}</a
       >".
     </p>
   </div>
