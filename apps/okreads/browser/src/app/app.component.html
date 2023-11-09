@@ -2,7 +2,7 @@
   <mat-drawer-content>
     <header class="header">
       <div class="header--content">
-        <h1>okreads</h1>
+        <h1>{{bookConstant.TITLE}}</h1>
         <div>
           <button
             data-testing="toggle-reading-list"
@@ -10,26 +10,26 @@
             (click)="drawer.toggle()"
             id="read-list-btn" aria-label="Reading List"
           >
-            Reading List
+          {{bookConstant.READING_LIST_TEXT}}
             <tmo-total-count></tmo-total-count>
           </button>
         </div>
       </div>
     </header>
     <main>
-      <tmo-book-search [readingList]="readingList$|async"></tmo-book-search>
+      <tmo-book-search></tmo-book-search>
     </main>
   </mat-drawer-content>
   <mat-drawer #drawer mode="over" position="end">
     <div class="reading-list-container" data-testing="reading-list-container">
       <h2>
-        My Reading List
+        {{bookConstant.MY_READING_LIST}}
         <button mat-icon-button (click)="drawer.close()" id="close-btn" aria-label="Close Button">
-          <mat-icon>close</mat-icon>
+          <mat-icon>{{bookConstant.CLOSE}}</mat-icon>
         </button>
       </h2>
       <div class="reading-list-content">
-        <tmo-reading-list [readingList]="readingList$|async"></tmo-reading-list>
+        <tmo-reading-list></tmo-reading-list>
       </div>
     </div>
   </mat-drawer>

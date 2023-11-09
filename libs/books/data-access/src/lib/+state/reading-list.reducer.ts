@@ -28,11 +28,11 @@ export const initialState: State = readingListAdapter.getInitialState({
 
 const readingListReducer = createReducer(
   initialState,
-  on(ReadingListActions.init, state => {
+  on(ReadingListActions.init, (state) => {
     return {
       ...state,
       loaded: false,
-      error: null
+      error: null,
     };
   }),
   on(ReadingListActions.loadReadingListSuccess, (state, action) => {
@@ -44,7 +44,7 @@ const readingListReducer = createReducer(
   on(ReadingListActions.loadReadingListError, (state, action) => {
     return {
       ...state,
-      error: action.error
+      error: action.error,
     };
   }),
   on(ReadingListActions.addToReadingList, (state, action) =>
@@ -52,6 +52,19 @@ const readingListReducer = createReducer(
   ),
   on(ReadingListActions.removeFromReadingList, (state, action) =>
     readingListAdapter.removeOne(action.item.bookId, state)
+  ),
+  on(ReadingListActions.updateReadingList, (state, action) =>
+    readingListAdapter.updateOne(
+      {
+        id: action.item.bookId,
+        changes: {
+          finished: action.item.finished,
+          finishedDate: action.item.finishedDate,
+          ...action.item,
+        },
+      },
+      state
+    )
   )
 );
 

@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, map } from 'rxjs/operators';
 import { ReadingListItem } from '@tmo/shared/models';
 import * as ReadingListActions from './reading-list.actions';
+import { BookConstant } from '@tmo/shared/models';
 
 @Injectable()
 export class ReadingListEffects implements OnInitEffects {
@@ -12,7 +13,7 @@ export class ReadingListEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(ReadingListActions.init),
       exhaustMap(() =>
-        this.http.get<ReadingListItem[]>('/api/reading-list').pipe(
+        this.http.get<ReadingListItem[]>(BookConstant.API.READING_LIST_API).pipe(
           map((data) =>
             ReadingListActions.loadReadingListSuccess({ list: data })
           ),
@@ -28,7 +29,7 @@ export class ReadingListEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(ReadingListActions.addToReadingList),
       concatMap(({ book }) =>
-        this.http.post('/api/reading-list', book).pipe(
+        this.http.post(BookConstant.API.READING_LIST_API, book).pipe(
           map(() => ReadingListActions.confirmedAddToReadingList({ book })),
           catchError(() =>
             of(ReadingListActions.failedAddToReadingList({ book }))
@@ -42,7 +43,7 @@ export class ReadingListEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(ReadingListActions.removeFromReadingList),
       concatMap(({ item }) =>
-        this.http.delete(`/api/reading-list/${item.bookId}`).pipe(
+        this.http.delete(`${BookConstant.API.READING_LIST_API}${item.bookId}`).pipe(
           map(() =>
             ReadingListActions.confirmedRemoveFromReadingList({ item })
           ),
@@ -55,30 +56,22 @@ export class ReadingListEffects implements OnInitEffects {
   );
 
   updateBook$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(ReadingListActions.updateReadingList),
-    concatMap(({ item }) => {
-      const updateBook = {
-        bookId: item.bookId,
-        finished:item.finished?item.finished:true,
-        finishedDate:item.finishedDate?item.finishedDate:new Date().toISOString()
-      };
-      return this.http
-        .put(`/api/reading-list/${item.bookId}/finished`, updateBook)
-        .pipe(
-          map(() =>
-            ReadingListActions.confirmedUpdateToReadingList({
-              item,
-              ...updateBook,
-            })
-          ),       
-          catchError((err) =>
-            of(ReadingListActions.failedUpdateToReadingList(err))
-          )
-        );
-    })
-  )
-);
+    this.actions$.pipe(
+      ofType(ReadingListActions.updateReadingList),
+      concatMap(({ item }) => {
+        return this.http
+          .put(`${BookConstant.API.READING_LIST_API}${item.bookId}/finished`, item)
+          .pipe(
+            map(() =>
+              ReadingListActions.confirmedUpdateToReadingList({ item })
+            ),
+            catchError((err) =>
+              of(ReadingListActions.failedUpdateToReadingList(err))
+            )
+          );
+      })
+    )
+  );
 
   ngrxOnInitEffects() {
     return ReadingListActions.init();
