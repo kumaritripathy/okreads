@@ -11,7 +11,7 @@
       <div class="reading-list-item--details--author">{{book.finishedDate}}</div>
     </div>
     <div>
-      <button data-testing="bookfinishedbutton" mat-raised-button color="{{book.finished ? 'disabled': 'primary' }}"  [disabled]="book.finished" matTooltip="Place order for this book" (click)="updateReadingList(book)">
+      <button data-testing="mark-as-finished" mat-raised-button color="{{book.finished ? 'disabled': 'primary' }}"  [disabled]="book.finished" matTooltip="Place order for this book" (click)="updateReadingList(book)">
         {{book.finished ? 'Finished': 'Order' }}   
       </button>
     </div>
@@ -20,6 +20,7 @@
         mat-icon-button
         color="warn"
         [attr.aria-label]="'Remove ' + book.title + ' from reading list'"
+        data-testing="remove-book"
         (click)="removeFromReadingList(book)"
       >
         <mat-icon>{{BookConstant.READING_LIST.REMOVE_CIRCLE}}</mat-icon>

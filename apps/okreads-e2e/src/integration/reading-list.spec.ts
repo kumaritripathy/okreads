@@ -1,6 +1,13 @@
 describe('When: I use the reading list feature', () => {
   beforeEach(() => {
     cy.startAt('/');
+    cy.get('[data-testing="toggle-reading-list"]').click();
+    cy.get('body').then((readingList) => {
+      if (readingList.find('.reading-list-item').length > 0) {
+        cy.get('[data-testing="remove-book"]').click({ multiple: true });
+      }
+    });
+
   });
 
   it('Then: I should see my reading list', () => {
@@ -13,15 +20,39 @@ describe('When: I use the reading list feature', () => {
   });
 });
 
-it('Then: I should be able to mark book as finished from the reading list', () => {
-  cy.get('input[type="search"]').type('java');
-  cy.get('form').submit();
-  cy.get('[data-testing="want-to-read-button"]').first().click();
+it('Then: I should be able to add book to the reading list and remove it', () => {
+  cy.get('input[type="search"]').type('test');
+
+  cy.get('[data-testing="search-button"]').click();
+
+  cy.wait(5000);
+
+  cy.get('[data-testing="add-book"]').first().click();
+
   cy.get('[data-testing="toggle-reading-list"]').click();
-  cy.wait(1000);
-  cy.get('[data-testing="bookfinishedbutton"]').should('be.enabled');
-  cy.get('[data-testing="reading-list-container"]').should(
-    'contain.text',
-    'My Reading List'
-  );
+
+  cy.get('[data-testing="reading-list-container"]').should('have.length', 1);
+
+  cy.get('[data-testing="remove-book"]').last().click();
+
+  cy.get('[data-testing="reading-list-item"]').should('have.length', 0);
 });
+
+it('Then: I should be able to add book to the reading list and mark it as finished', () => {
+  cy.get('input[type="search"]').type('test2');
+
+  cy.get('[data-testing="search-button"]:enabled').click()
+
+  cy.get('[data-testing="add-book"]').first().click();
+
+  cy.get('[data-testing="toggle-reading-list"]').click();
+
+  cy.get('.reading-list-item').should('have.length', 1);
+
+  cy.get('[data-testing="add-book"]').first().contains('Want to Read');
+
+  cy.get('[data-testing="mark-as-finished"]').click();
+
+  cy.get('[data-testing="add-book"]').first().contains('Finished');
+});
+
