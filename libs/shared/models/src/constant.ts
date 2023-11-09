@@ -12,6 +12,7 @@ export const BookConstant = {
   API: {
     BOOKS_SEARCH_API: '/api/books/search?q=',
     READING_LIST_API: '/api/reading-list',
+    FINISHED: 'finished'
   },
   READING_LIST: {
     REMOVE_CIRCLE: 'remove_circle',
@@ -21,6 +22,7 @@ export const BookConstant = {
   READING_LIST_TEXT: 'Reading List',
   MY_READING_LIST: 'My Reading List',
   CLOSE: 'close',
+  ERROR: 'Something went wrong',
   SNACKBAR_CONSTANTS: {
     BOOK_ADDED_TEXT: 'is added to the reading list!',
     BOOK_REMOVED_TEXT: 'is removed from the reading list!',

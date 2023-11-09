@@ -1,3 +1,4 @@
+import { BookConstant } from '@tmo/shared/models';
 import * as ReadingListActions from './reading-list.actions';
 import {
   initialState,
@@ -51,6 +52,30 @@ describe('Books Reducer', () => {
 
       expect(result.ids).toEqual(['A', 'B']);
     });
+  
+it('should confirmedUpdateToReadingList should mark book as finished in the state', () => {
+      const bookFinished = {
+        ...createReadingListItem('A'),
+        finished: true,
+        finishedDate: new Date().toISOString()
+      };
+      const action = ReadingListActions.updateReadingList({
+        item: bookFinished
+      });
+ 
+      const result: State = reducer(state, action);
+      expect(result.entities['A']?.finished).toBeTruthy();
+    });
+ 
+    it('should failedUpdateToReadingList should not mark book as finished in the state', () => {
+      const action = ReadingListActions.failedUpdateToReadingList({
+        err: BookConstant.ERROR
+      });
+ 
+      const result: State = reducer(state, action);
+      expect(result.error).toEqual(BookConstant.ERROR);
+    });
+  });
   });
 
   describe('unknown action', () => {
@@ -62,4 +87,4 @@ describe('Books Reducer', () => {
       expect(result).toEqual(initialState);
     });
   });
-});
+

@@ -51,5 +51,5 @@ export const confirmedUpdateToReadingList = createAction(
 );
 export const failedUpdateToReadingList = createAction(
   '[Reading List API] Failed Update to list',
-  props<{ item: ReadingListItem }>()
+  props<{ err: String }>()
 );

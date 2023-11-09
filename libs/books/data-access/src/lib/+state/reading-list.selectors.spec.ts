@@ -6,7 +6,7 @@ import {
 import * as ToReadSelectors from './reading-list.selectors';
 import { createBook, createReadingListItem } from '@tmo/shared/testing';
 
-describe('ReadingList Selectors', () => {
+describe('Reading List Selectors', () => {
   let state;
 
   beforeEach(() => {
@@ -16,7 +16,8 @@ describe('ReadingList Selectors', () => {
         {
           ...booksInitialState,
           error: 'Unknown error',
-          loaded: true
+          loaded: true,
+          finished:false
         }
       ),
       readingList: readingListAdapter.addMany(
@@ -28,7 +29,8 @@ describe('ReadingList Selectors', () => {
         {
           ...initialState,
           error: 'Unknown error',
-          loaded: true
+          loaded: true,
+          finished:false
         }
       )
     };
@@ -47,5 +49,11 @@ describe('ReadingList Selectors', () => {
 
       expect(result).toBe(3);
     });
+    it('should return the list of Books with finished property as false when getAllBooks() gets invoked', () => {
+      const results = ToReadSelectors.getAllBooks(state);
+
+      expect(results[0].finished).toBeFalsy();
+    });
+  
   });
 });

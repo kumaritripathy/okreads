@@ -65,8 +65,15 @@ const readingListReducer = createReducer(
       },
       state
     )
-  )
+  ),
+  on(ReadingListActions.failedUpdateToReadingList, (state, action) => {
+    return {
+      ...state,
+      error: action.err,
+    };
+  }),
 );
+
 
 export function reducer(state: State | undefined, action: Action) {
   return readingListReducer(state, action);

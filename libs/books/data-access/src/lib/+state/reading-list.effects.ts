@@ -43,7 +43,7 @@ export class ReadingListEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(ReadingListActions.removeFromReadingList),
       concatMap(({ item }) =>
-        this.http.delete(`${BookConstant.API.READING_LIST_API}${item.bookId}`).pipe(
+        this.http.delete(`${BookConstant.API.READING_LIST_API}/${item.bookId}`).pipe(
           map(() =>
             ReadingListActions.confirmedRemoveFromReadingList({ item })
           ),
@@ -60,13 +60,13 @@ export class ReadingListEffects implements OnInitEffects {
       ofType(ReadingListActions.updateReadingList),
       concatMap(({ item }) => {
         return this.http
-          .put(`${BookConstant.API.READING_LIST_API}${item.bookId}/finished`, item)
+          .put(`${BookConstant.API.READING_LIST_API}/${item.bookId}/${BookConstant.API.FINISHED}`, item)
           .pipe(
             map(() =>
               ReadingListActions.confirmedUpdateToReadingList({ item })
             ),
             catchError((err) =>
-              of(ReadingListActions.failedUpdateToReadingList(err))
+              of(ReadingListActions.failedUpdateToReadingList({err:BookConstant.ERROR}))
             )
           );
       })
