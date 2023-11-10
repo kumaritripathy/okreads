@@ -31,7 +31,7 @@ describe('ToReadEffects', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  describe('loadReadingList$', () => {
+  describe('should load Reading List', () => {
     it('should initialize the reading list items', done => {
       actions = of(ReadingListActions.init());
       effects.loadReadingList$.subscribe(action => {
@@ -43,14 +43,15 @@ describe('ToReadEffects', () => {
       httpMock.expectOne(BookConstant.API.READING_LIST_API).flush([]);
     });
 
-    it('should dispatch confirmedAddToReadingList from the reading list', (done) => {
+    it('should dispatch addToReadingList', (done) => {
       const book: Book = { ...createBook('A') };
       actions = of(ReadingListActions.addToReadingList({ book }));
       effects = TestBed.inject(ReadingListEffects);
-      console.log(effects);
       effects.addBook$.subscribe((action) => {
-        expect(action.type).toEqual(
-          "[Reading List API] Confirmed add to list"
+        expect(action).toEqual(
+          ReadingListActions.confirmedAddToReadingList({
+            book
+          })
         );
         done();
       });
@@ -101,7 +102,6 @@ describe('ToReadEffects', () => {
       );
       const outcome = ReadingListActions.failedRemoveFromReadingList(error);
       effects.removeBook$.subscribe((action) => {
-        console.log(action);
         expect(action.type).toEqual(outcome.type);
         done();
       });
