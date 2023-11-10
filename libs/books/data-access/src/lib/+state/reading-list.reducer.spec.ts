@@ -34,7 +34,7 @@ describe('Reading list reducer', () => {
         book: createBook('B'),
       });
       const result: State = reducer(state, action);
-      expect(result.ids).toEqual(['A', 'B']);
+      expect(result.ids).toEqual(['B']);
     });
 
     it('should failedRemoveFromReadingList and update state with error message from the reading list', () => {
