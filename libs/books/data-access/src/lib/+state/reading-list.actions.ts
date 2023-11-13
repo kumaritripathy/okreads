@@ -14,30 +14,34 @@ export const loadReadingListError = createAction(
 
 export const addToReadingList = createAction(
   '[Books Search Results] Add to list',
-  props<{ book: Book }>()
+  props<{ book: Book,showSnackBar: boolean }>()
 );
 
 export const failedAddToReadingList = createAction(
   '[Reading List API] Failed add to list',
-  props<{ book: Book }>()
+  props<{ error: string }>()
 );
 
 export const confirmedAddToReadingList = createAction(
   '[Reading List API] Confirmed add to list',
-  props<{ book: Book }>()
+  props<{ book: Book,showSnackBar: boolean}>()
 );
 
 export const removeFromReadingList = createAction(
   '[Books Search Results] Remove from list',
-  props<{ item: ReadingListItem }>()
+  props<{ item: ReadingListItem,showSnackBar: boolean}>()
 );
 
 export const failedRemoveFromReadingList = createAction(
   '[Reading List API] Failed remove from list',
-  props<{ item: ReadingListItem }>()
+  props<{ error: string }>()
 );
 
 export const confirmedRemoveFromReadingList = createAction(
   '[Reading List API] Confirmed remove from list',
-  props<{ item: ReadingListItem }>()
+  props<{ item: ReadingListItem,showSnackBar: boolean }>()
+);
+export const showSnackBar = createAction(
+  '[Reading List API] Should show snackbar',
+  props<{ actionType: string, item: ReadingListItem }>()
 );
