@@ -12,15 +12,16 @@
     <div>
       <button
         mat-icon-button
+        data-testing="remove-book"
         color="warn"
         [attr.aria-label]="'Remove ' + b.title + ' from reading list'"
         (click)="removeFromReadingList(b)"
       >
-        <mat-icon>{{readingListConstant.READING_LIST.REMOVE_CIRCLE}}</mat-icon>
+        <mat-icon data-testing="close-reading-list">{{readingListConstant.READING_LIST.REMOVE_CIRCLE}}</mat-icon>
       </button>
     </div>
   </div>
 </ng-container>
 <ng-template #empty>
-  <p class="empty">{{readingListConstant.READING_LIST.EMPTY_LIST_TEXT}}</p>
+  <p data-testing="empty-text" class="empty">{{readingListConstant.READING_LIST.EMPTY_LIST_TEXT}}</p>
 </ng-template>

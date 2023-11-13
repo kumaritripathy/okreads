@@ -4,6 +4,7 @@
       autoFocus
       matInput
       type="search"
+      data-testing="search-button"
       placeholder="{{bookSearchConstant.BOOK_SEARCH.PLACEHOLDER_TEXT}}"
       formControlName="term"
     />
@@ -36,6 +37,7 @@
               color="primary"
               (click)="addBookToReadingList(b)"
               [disabled]="bookItem.isAdded"
+              data-testing="add-book"
               id="want_to_read" aria-label="Want to Read"
             >
             {{bookSearchConstants.BOOK_SEARCH.WANT_TO_READ}}
