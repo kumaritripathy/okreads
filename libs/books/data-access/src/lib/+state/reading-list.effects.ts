@@ -46,8 +46,8 @@ export class ReadingListEffects  {
           map(() =>
             ReadingListActions.confirmedRemoveFromReadingList({ item })
           ),
-          catchError(() =>
-            of(ReadingListActions.failedRemoveFromReadingList({ item }))
+          catchError((error) =>
+            of(ReadingListActions.failedRemoveFromReadingList({ error }))
           )
         )
       )

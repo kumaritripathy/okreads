@@ -1,15 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { ReplaySubject } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { createBook, SharedTestingModule } from '@tmo/shared/testing';
 
 import { BooksEffects } from './books.effects';
 import * as BooksActions from './books.actions';
 import { HttpTestingController } from '@angular/common/http/testing';
+import { Action } from '@ngrx/store';
 import { okreadsConstant } from '@tmo/shared/models';
+
 describe('BooksEffects', () => {
-  let actions: ReplaySubject<any>;
+  let actions: Observable<Action>;
   let effects: BooksEffects;
   let httpMock: HttpTestingController;
 
@@ -27,19 +29,18 @@ describe('BooksEffects', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  describe('loadBooks$', () => {
-    it('should work', done => {
-      actions = new ReplaySubject();
-      actions.next(BooksActions.searchBooks({ term: '' }));
-
-      effects.searchBooks$.subscribe(action => {
+  describe('searchBooks$', () => {
+    it('should dispatch searchBooksSuccess action when search books API is success', (done) => {
+      actions = of(BooksActions.searchBooks({ term: '' }));
+      effects.searchBooks$.subscribe((action) => {
         expect(action).toEqual(
           BooksActions.searchBooksSuccess({ books: [createBook('A')] })
         );
         done();
       });
-
-      httpMock.expectOne(okreadsConstant.API.BOOKS_SEARCH_API).flush([createBook('A')]);
+      httpMock
+        .expectOne(`${okreadsConstant.API.BOOKS_SEARCH_API}`)
+        .flush([createBook('A')]);
     });
   });
 });
