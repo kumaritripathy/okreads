@@ -6,59 +6,72 @@ import {
   State
 } from './reading-list.reducer';
 import { createBook, createReadingListItem } from '@tmo/shared/testing';
-
-describe('Books Reducer', () => {
-  describe('valid Books actions', () => {
+ 
+describe('Reading List Reducer', () => {
+  describe('validate Books actions', () => {
     let state: State;
-
     beforeEach(() => {
       state = readingListAdapter.setAll(
         [createReadingListItem('A'), createReadingListItem('B')],
         initialState
       );
     });
-
-    it('loadBooksSuccess should load books from reading list', () => {
+ 
+    it('should loadBooksSuccess load books from reading list', () => {
       const list = [
         createReadingListItem('A'),
         createReadingListItem('B'),
         createReadingListItem('C')
       ];
       const action = ReadingListActions.loadReadingListSuccess({ list });
-
+ 
       const result: State = reducer(initialState, action);
-
+ 
       expect(result.loaded).toBe(true);
       expect(result.ids.length).toEqual(3);
     });
-
-    it('failedAddToReadingList should undo book addition to the state', () => {
-      const action = ReadingListActions.failedAddToReadingList({
-        book: createBook('B')
+ 
+    it('should confirmedAddToReadingList  add books to the reading list', () => {
+      const action = ReadingListActions.confirmedAddToReadingList({
+        book: createBook('C'),
+        showSnackBar: true
       });
-
       const result: State = reducer(state, action);
-
-      expect(result.ids).toEqual(['A','B']);
-    });
-
-    it('failedRemoveFromReadingList should undo book removal from the state', () => {
-      const action = ReadingListActions.failedRemoveFromReadingList({
-        item: createReadingListItem('C')
-      });
-
-      const result: State = reducer(state, action);
-
       expect(result.ids).toEqual(['A', 'B']);
     });
+ 
+    it('should confirmedRemoveFromReadingList remove books from the reading list', () => {
+      const action = ReadingListActions.confirmedRemoveFromReadingList({
+        item: createReadingListItem('B'),
+        showSnackBar: true
+      });
+      const result: State = reducer(state, action);
+      expect(result.ids).toEqual(['A', 'B']);
+    });
+    it('should failedAddToReadingList to the reading list', () => {
+      const error = 'Failed to add book to the reading list';
+      const action = ReadingListActions.failedAddToReadingList({
+        error
+      });
+      const result: State = reducer(state, action);
+      expect(result.ids).toEqual(['A', 'B']);
+      expect(result.error).toEqual(null);
+    });
+    it('should failedRemoveFromReadingList from the reading list', () => {
+      const error = 'Failed to remove book from the reading list!';
+      const action = ReadingListActions.failedRemoveFromReadingList({
+        error
+      });
+      const result: State = reducer(state, action);
+      expect(result.ids).toEqual(['A', 'B']);
+      expect(result.error).toEqual(null);
+    });
   });
-
+ 
   describe('unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;
-
       const result = reducer(initialState, action);
-
       expect(result).toEqual(initialState);
     });
   });

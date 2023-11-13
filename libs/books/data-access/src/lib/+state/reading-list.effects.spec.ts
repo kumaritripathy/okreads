@@ -7,7 +7,7 @@ import { HttpTestingController } from '@angular/common/http/testing';
 import { SharedTestingModule, createBook, createReadingListItem } from '@tmo/shared/testing';
 import { ReadingListEffects } from './reading-list.effects';
 import * as ReadingListActions from './reading-list.actions';
-import { Book, ReadingListItem} from '@tmo/shared/models';
+import { Book, ReadingListItem, UndoActionConstant} from '@tmo/shared/models';
 import { Action } from '@ngrx/store';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import * as BookConstant from '@tmo/shared/models';
@@ -42,50 +42,65 @@ describe('ToReadEffects', () => {
       });
       httpMock.expectOne(BookConstant.API.READING_LIST_API).flush([]);
     });
+  })
+  describe('addBook', () => {
+    it('should dispatch confirmedAddToReadingList when book is added to the reading list', (done) => {
+      const book: Book = { ...createBook('A'), isAdded: true };
+      actions = of(
+        ReadingListActions.addToReadingList({ book, showSnackBar: true })
+      );
 
-    it('should dispatch addToReadingList', (done) => {
-      const book: Book = { ...createBook('A') };
-      actions = of(ReadingListActions.addToReadingList({ book }));
-      effects = TestBed.inject(ReadingListEffects);
       effects.addBook$.subscribe((action) => {
         expect(action).toEqual(
           ReadingListActions.confirmedAddToReadingList({
-            book
+            book,
+            showSnackBar: true
           })
         );
         done();
       });
+
       httpMock
-        .expectOne(BookConstant.API.READING_LIST_API)
+        .expectOne(`${BookConstant.API.READING_LIST_API}`)
         .flush([book]);
     });
 
-
     it('should dispatch failedAddToReadingList when api throws an error', (done) => {
-      const book: Book = { ...createBook('A')};
+      const book: Book = { ...createBook('A'), isAdded: false };
       actions = of(
-        ReadingListActions.addToReadingList({ book: book})
+        ReadingListActions.addToReadingList({ book: book, showSnackBar: false })
       );
-      const result = ReadingListActions.failedAddToReadingList(error);
+      const result = ReadingListActions.failedAddToReadingList(
+        new ErrorEvent('error')
+      );
+
       effects.addBook$.subscribe((action) => {
         expect(action.type).toEqual(result.type);
         done();
       });
+
       httpMock
-        .expectOne(BookConstant.API.READING_LIST_API)
+        .expectOne(`${BookConstant.API.READING_LIST_API}`)
         .error(new ErrorEvent('error'));
     });
+  });
 
-    it('should dispatch confirmedRemoveFromReadingList when book is removed', (done) => {
+  describe('removeBook$', () => {
+    it('should dispatch confirmedRemoveFromReadingList  from the reading list', (done) => {
       const item = createReadingListItem('A');
       actions = of(
         ReadingListActions.removeFromReadingList({
-          item: item
+          item: item,
+          showSnackBar: true
         })
       );
+
       effects.removeBook$.subscribe((action) => {
-        expect(action.type).toEqual(
-          "[Reading List API] Confirmed remove from list"
+        expect(action).toEqual(
+          ReadingListActions.confirmedRemoveFromReadingList({
+            item: item,
+            showSnackBar: true
+          })
         );
         done();
       });
@@ -98,9 +113,12 @@ describe('ToReadEffects', () => {
     it('should dispatch failedRemoveFromReadingList when api throws an error', (done) => {
       const item: ReadingListItem = createReadingListItem('A');
       actions = of(
-        ReadingListActions.removeFromReadingList({ item})
+        ReadingListActions.removeFromReadingList({ item, showSnackBar: true })
       );
-      const outcome = ReadingListActions.failedRemoveFromReadingList(error);
+      const outcome = ReadingListActions.failedRemoveFromReadingList(
+        new ErrorEvent('error')
+      );
+
       effects.removeBook$.subscribe((action) => {
         expect(action.type).toEqual(outcome.type);
         done();
@@ -111,4 +129,49 @@ describe('ToReadEffects', () => {
         .error(new ErrorEvent('error'));
     });
   });
+
+  describe('undoAddBook$', () => {
+    it('should undo addition of book when showSnackbar action is dispatched', (done) => {
+      const book: Book = { ...createBook('A'), isAdded: true };
+      actions = of(
+        ReadingListActions.confirmedAddToReadingList({
+          book: book,
+          showSnackBar: true
+        })
+      );
+
+      effects.undoAddBook$.subscribe((action) => {
+        expect(action).toEqual(
+          ReadingListActions.showSnackBar({
+            actionType: UndoActionConstant.SNACKBAR_CONSTANTS.ADD,
+            item: { bookId: book.id, ...book }
+          })
+        );
+        done();
+      });
+    });
+  });
+
+  describe('undoRemoveBook$', () => {
+    it('should undo removal of book when showSnackbar action is dispatched', (done) => {
+      const item: ReadingListItem = createReadingListItem('A');
+      actions = of(
+        ReadingListActions.confirmedRemoveFromReadingList({
+          item: item,
+          showSnackBar: true
+        })
+      );
+
+      effects.undoRemoveBook$.subscribe((action) => {
+        expect(action).toEqual(
+          ReadingListActions.showSnackBar({
+            actionType: UndoActionConstant.SNACKBAR_CONSTANTS.REMOVE,
+            item: action.item
+          })
+        );
+        done();
+      });
+    });
+  });
 });
+   

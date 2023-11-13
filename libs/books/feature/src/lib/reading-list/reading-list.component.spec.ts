@@ -53,7 +53,6 @@ describe('ReadingListComponent', () => {
     const bookAuthorName = fixture.nativeElement.querySelector(
       '[data-testing="book-author-name"]'
     );
- 
     expect(bookCover).toBeTruthy();
     expect(bookTitle.innerHTML.trim()).toBe('Book testing');
     expect(bookAuthorName.innerHTML.trim()).toBe('Author testing');
@@ -64,9 +63,7 @@ describe('ReadingListComponent', () => {
     const removeButton = fixture.nativeElement.querySelector(
       '[data-testing="remove-book"]'
     ) as HTMLButtonElement;
- 
     removeButton.click();
- 
     expect(store.dispatch).toHaveBeenCalledWith(
       removeFromReadingList({
         item: bookItem, showSnackBar: true
@@ -82,7 +79,6 @@ describe('ReadingListComponent', () => {
     const emptyText = fixture.nativeElement.querySelector(
       '[data-testing="empty-text"]'
     );
- 
     expect(emptyText.innerHTML.trim()).toBe(
       UndoActionConstant.READING_LIST.EMPTY_LIST_TEXT
     );
