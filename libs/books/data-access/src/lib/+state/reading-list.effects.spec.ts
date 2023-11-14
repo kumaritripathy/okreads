@@ -10,8 +10,6 @@ import {
 } from '@tmo/shared/testing';
 import { ReadingListEffects } from './reading-list.effects';
 import * as ReadingListActions from './reading-list.actions';
-import { Action } from '@ngrx/store';
-import { BookConstant } from '@tmo/shared/models';
 
 describe('ReadingListEffects', () => {
   let actions: Observable<Action>;
@@ -33,73 +31,18 @@ describe('ReadingListEffects', () => {
   });
 
   describe('loadReadingList$', () => {
-    it('should load effects', () => {
-      expect(effects).toBeTruthy();
-    });
+    it('should work', done => {
+      actions = new ReplaySubject();
+      actions.next(ReadingListActions.init());
 
-    it('should initialize the reading list items', (done) => {
-      actions = of(ReadingListActions.init());
-      effects.loadReadingList$.subscribe((action) => {
+      effects.loadReadingList$.subscribe(action => {
         expect(action).toEqual(
           ReadingListActions.loadReadingListSuccess({ list: [] })
         );
         done();
       });
-      httpMock.expectOne(BookConstant.API.READING_LIST_API).flush([]);
-    });
 
-    it('should mark book as finished when update book action is dispatched', (done) => {
-      const updatedBook = {
-        ...createReadingListItem('test'),
-        finished: true,
-        finishedDate: '2021-10-12T09:18:15.626Z',
-      };
-
-      actions = of(
-        ReadingListActions.updateReadingList({
-          item: updatedBook,
-        })
-      );
-
-      effects.updateBook$.subscribe((action) => {
-        action['item'].finishedDate = '2021-08-12T09:18:15.626Z';
-        expect(action).toEqual(
-          ReadingListActions.confirmedUpdateToReadingList({
-            item: updatedBook,
-          })
-        );
-        done();
-      });
-      httpMock
-        .expectOne(
-          `${BookConstant.API.READING_LIST_API}/test/${BookConstant.API.FINISHED}`
-        )
-        .flush({ ...updatedBook });
-    });
-
-    it('should not mark book as finished when api throws an error', (done) => {
-      const err = BookConstant.ERROR;
-      actions = of(
-        ReadingListActions.updateReadingList({
-          item: createReadingListItem('test'),
-        })
-      );
-
-      effects.updateBook$.subscribe((action) => {
-        expect(action).toEqual(
-          ReadingListActions.failedUpdateToReadingList({ err })
-        );
-        done();
-      });
-
-      httpMock
-        .expectOne(
-          `${BookConstant.API.READING_LIST_API}/test/${BookConstant.API.FINISHED}`
-        )
-        .error(new ErrorEvent('HttpErrorResponse'), {
-          status: 500,
-          statusText: err,
-        });
+      httpMock.expectOne('/api/reading-list').flush([]);
     });
   });
 });

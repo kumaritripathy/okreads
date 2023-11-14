@@ -76,4 +76,3 @@ it('should confirmedUpdateToReadingList should mark book as finished in the stat
       expect(result).toEqual(initialState);
     });
   });
-

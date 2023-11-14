@@ -11,8 +11,7 @@ describe('Books Reducer', () => {
       expect(result.loaded).toBe(true);
       expect(result.ids.length).toBe(3);
     });
-  });
-
+  }); 
   describe('unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;

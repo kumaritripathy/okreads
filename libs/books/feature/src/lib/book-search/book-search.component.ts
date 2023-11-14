@@ -17,13 +17,13 @@ import { Book, BookConstant } from '@tmo/shared/models';
 })
 export class BookSearchComponent{
   books$ = this.store.select(getAllBooks);
-  searchForm = this.fb.group({
+  searchForm = this.formBuilder.group({
     term: ''
   });
   bookConstant = BookConstant;
   constructor(
     private readonly store: Store,
-    private readonly fb: FormBuilder
+    private readonly formBuilder: FormBuilder
   ) {}
 
   get searchTerm(): string {
