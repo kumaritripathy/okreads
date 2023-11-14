@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UndoActionConstant} from '@tmo/shared/models';
+import { BookConstant} from '@tmo/shared/models';
 
 
 @Component({
@@ -8,5 +8,5 @@ import { UndoActionConstant} from '@tmo/shared/models';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-readonly landingConstant = UndoActionConstant;
+bookConstant = BookConstant;
 }

@@ -3,7 +3,7 @@ import * as BooksActions from './books.actions';
 import { createBook } from '@tmo/shared/testing';
 
 describe('Books Reducer', () => {
-  describe('valid Books actions', () => {
+  describe('validate Books actions', () => {
     it('loadBooksSuccess should return set the list of known Books', () => {
       const books = [createBook('A'), createBook('B'), createBook('C')];
       const action = BooksActions.searchBooksSuccess({ books });

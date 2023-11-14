@@ -8,8 +8,8 @@ import * as ReadingListActions from './reading-list.actions';
 import { TypedAction } from '@ngrx/store/src/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
-import { UndoActionConstant} from '@tmo/shared/models';
-import * as BookConstant from '@tmo/shared/models';
+import { BookConstant} from '@tmo/shared/models';
+
 
 @Injectable()
 export class ReadingListEffects implements OnInitEffects {
@@ -81,7 +81,7 @@ export class ReadingListEffects implements OnInitEffects {
       filter((action) => action.showSnackBar),
       map((action) =>
         ReadingListActions.showSnackBar({
-          actionType: UndoActionConstant.SNACKBAR_CONSTANTS.ADD,
+          actionType: BookConstant.SNACKBAR_CONSTANTS.ADD,
           item: { bookId: action.book.id, ...action.book },
         })
       )
@@ -93,7 +93,7 @@ export class ReadingListEffects implements OnInitEffects {
       filter((action) => action.showSnackBar),
       map((action) =>
         ReadingListActions.showSnackBar({
-          actionType: UndoActionConstant.SNACKBAR_CONSTANTS.REMOVE,
+          actionType: BookConstant.SNACKBAR_CONSTANTS.REMOVE,
           item: action.item,
         })
       )
@@ -108,22 +108,22 @@ export class ReadingListEffects implements OnInitEffects {
         const { actionType, item } = action;
         return this.snackBar
           .open(
-            actionType === UndoActionConstant.SNACKBAR_CONSTANTS.ADD
-              ? `${title} - ${UndoActionConstant.SNACKBAR_CONSTANTS.BOOK_ADDED_TEXT}`
-              : `${title} - ${UndoActionConstant.SNACKBAR_CONSTANTS.BOOK_REMOVED_TEXT}`,
-            UndoActionConstant.SNACKBAR_CONSTANTS.UNDO,
+            actionType === BookConstant.SNACKBAR_CONSTANTS.ADD
+              ? `${title} - ${BookConstant.SNACKBAR_CONSTANTS.BOOK_ADDED_TEXT}`
+              : `${title} - ${BookConstant.SNACKBAR_CONSTANTS.BOOK_REMOVED_TEXT}`,
+            BookConstant.SNACKBAR_CONSTANTS.UNDO,
             {
-              duration: UndoActionConstant.SNACKBAR_CONSTANTS.DURATION,
+              duration: BookConstant.SNACKBAR_CONSTANTS.DURATION,
               panelClass:
-                actionType === UndoActionConstant.SNACKBAR_CONSTANTS.ADD
-                  ? UndoActionConstant.SNACKBAR_CONSTANTS.BOOK_ADDED_CLASS
-                  : UndoActionConstant.SNACKBAR_CONSTANTS.BOOK_REMOVED_CLASS,
+                actionType === BookConstant.SNACKBAR_CONSTANTS.ADD
+                  ? BookConstant.SNACKBAR_CONSTANTS.BOOK_ADDED_CLASS
+                  : BookConstant.SNACKBAR_CONSTANTS.BOOK_REMOVED_CLASS,
             }
           )
           .onAction()
           .pipe(
             map(() =>
-              actionType === UndoActionConstant.SNACKBAR_CONSTANTS.ADD
+              actionType === BookConstant.SNACKBAR_CONSTANTS.ADD
                 ? ReadingListActions.removeFromReadingList({
                     item,
                     showSnackBar: false,

@@ -1,4 +1,4 @@
-export const UndoActionConstant = {
+export const BookConstant = {
     BOOK_SEARCH: {
         PLACEHOLDER_TEXT: 'Search for books to add to your reading list',
         SEARCH: 'search',
@@ -8,6 +8,11 @@ export const UndoActionConstant = {
         WANT_TO_READ: 'Want to Read',
         SEARCH_EXAMPLE_TEXT: 'Try searching for a topic, for example',
         JAVASCRIPT: 'JavaScript'
+    },
+    API: {
+      BOOKS_SEARCH_API: '/api/books/search?q=',
+      READING_LIST_API: '/api/reading-list',
+      FINISHED: 'finished'
     },
     READING_LIST: {
         REMOVE_CIRCLE: 'remove_circle',
@@ -28,7 +33,4 @@ export const UndoActionConstant = {
         BOOK_ADDED_CLASS: 'bookAdded'
       }
 }
- export const API = {
-   BOOKS_SEARCH_API: '/api/books/search?q=',
-   READING_LIST_API: '/api/reading-list'
- };
+

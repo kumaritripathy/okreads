@@ -7,10 +7,10 @@ import { HttpTestingController } from '@angular/common/http/testing';
 import { SharedTestingModule, createBook, createReadingListItem } from '@tmo/shared/testing';
 import { ReadingListEffects } from './reading-list.effects';
 import * as ReadingListActions from './reading-list.actions';
-import { Book, ReadingListItem, UndoActionConstant} from '@tmo/shared/models';
+import { Book, ReadingListItem,BookConstant} from '@tmo/shared/models';
 import { Action } from '@ngrx/store';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import * as BookConstant from '@tmo/shared/models';
+
 
 describe('ToReadEffects', () => {
   let actions: Observable<Action>;
@@ -143,7 +143,7 @@ describe('ToReadEffects', () => {
       effects.undoAddBook$.subscribe((action) => {
         expect(action).toEqual(
           ReadingListActions.showSnackBar({
-            actionType: UndoActionConstant.SNACKBAR_CONSTANTS.ADD,
+            actionType: BookConstant.SNACKBAR_CONSTANTS.ADD,
             item: { bookId: book.id, ...book }
           })
         );
@@ -165,7 +165,7 @@ describe('ToReadEffects', () => {
       effects.undoRemoveBook$.subscribe((action) => {
         expect(action).toEqual(
           ReadingListActions.showSnackBar({
-            actionType: UndoActionConstant.SNACKBAR_CONSTANTS.REMOVE,
+            actionType: BookConstant.SNACKBAR_CONSTANTS.REMOVE,
             item: action.item
           })
         );
