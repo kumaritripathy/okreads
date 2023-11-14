@@ -11,7 +11,6 @@ import { createBook, createReadingListItem } from '@tmo/shared/testing';
 describe('Books Reducer', () => {
   describe('valid Books actions', () => {
     let state: State;
-
     beforeEach(() => {
       state = readingListAdapter.setAll(
         [createReadingListItem('A'), createReadingListItem('B')],
@@ -26,9 +25,7 @@ describe('Books Reducer', () => {
         createReadingListItem('C')
       ];
       const action = ReadingListActions.loadReadingListSuccess({ list });
-
       const result: State = reducer(initialState, action);
-
       expect(result.loaded).toBe(true);
       expect(result.ids.length).toEqual(3);
     });
@@ -37,9 +34,7 @@ describe('Books Reducer', () => {
       const action = ReadingListActions.failedAddToReadingList({
         book: createBook('B')
       });
-
       const result: State = reducer(state, action);
-
       expect(result.ids).toEqual(['A','B']);
     });
 
@@ -47,9 +42,7 @@ describe('Books Reducer', () => {
       const action = ReadingListActions.failedRemoveFromReadingList({
         item: createReadingListItem('C')
       });
-
       const result: State = reducer(state, action);
-
       expect(result.ids).toEqual(['A', 'B']);
     });
   
@@ -62,7 +55,6 @@ it('should confirmedUpdateToReadingList should mark book as finished in the stat
       const action = ReadingListActions.updateReadingList({
         item: bookFinished
       });
- 
       const result: State = reducer(state, action);
       expect(result.entities['A']?.finished).toBeTruthy();
     });
@@ -71,7 +63,6 @@ it('should confirmedUpdateToReadingList should mark book as finished in the stat
       const action = ReadingListActions.failedUpdateToReadingList({
         err: BookConstant.ERROR
       });
- 
       const result: State = reducer(state, action);
       expect(result.error).toEqual(BookConstant.ERROR);
     });
@@ -81,9 +72,7 @@ it('should confirmedUpdateToReadingList should mark book as finished in the stat
   describe('unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;
-
       const result = reducer(initialState, action);
-
       expect(result).toEqual(initialState);
     });
   });

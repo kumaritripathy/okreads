@@ -27,7 +27,7 @@
           <div data-testing="book-author-name"><strong>Author:</strong> {{ book.authors.join(',') }}</div>
           <div><strong>Publisher:</strong> {{ book.publisher }}</div>
           <div data-testing="book-published-date">
-            <strong>Published:</strong> {{ formatDate(book.publishedDate) }}
+            <strong>Published:</strong> {{ book.publishedDate| date :'short' }}
           </div>
           <p data-testing="book-description" [innerHTML]="book.description"></p>
           <div>

@@ -10,9 +10,10 @@ import { BookConstant } from '@tmo/shared/models';
   styleUrls: ['./reading-list.component.scss'],
 })
 export class ReadingListComponent {
-  readonly readingListConstant = BookConstant;
   constructor(private readonly store: Store) {}
   readingList$ = this.store.select(getReadingList);
+  bookConstant = BookConstant;
+
   removeFromReadingList(readingItem) {
     const item = {
       ...readingItem,

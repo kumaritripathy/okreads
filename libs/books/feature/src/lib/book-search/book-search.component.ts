@@ -17,11 +17,10 @@ import { Book, BookConstant } from '@tmo/shared/models';
 })
 export class BookSearchComponent{
   books$ = this.store.select(getAllBooks);
-  bookConstant = BookConstant;
   searchForm = this.fb.group({
     term: ''
   });
-
+  bookConstant = BookConstant;
   constructor(
     private readonly store: Store,
     private readonly fb: FormBuilder
@@ -29,16 +28,6 @@ export class BookSearchComponent{
 
   get searchTerm(): string {
     return this.searchForm.value.term;
-  }
-
-
-  
-
- 
-  formatDate(date: void | string) {
-    return date
-      ? new Intl.DateTimeFormat('en-US').format(new Date(date))
-      : undefined;
   }
 
   addBookToReadingList(book: Book) {

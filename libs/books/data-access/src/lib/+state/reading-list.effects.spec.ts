@@ -11,7 +11,7 @@ import {
 import { ReadingListEffects } from './reading-list.effects';
 import * as ReadingListActions from './reading-list.actions';
 import { Action } from '@ngrx/store';
-import { BookConstant, ReadingListItem } from '@tmo/shared/models';
+import { BookConstant } from '@tmo/shared/models';
 
 describe('ReadingListEffects', () => {
   let actions: Observable<Action>;
