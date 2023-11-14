@@ -8,7 +8,7 @@ import {
   searchBooks
 } from '@tmo/books/data-access';
 import { FormBuilder } from '@angular/forms';
-import { Book } from '@tmo/shared/models';
+import { Book, BookConstant } from '@tmo/shared/models';
 import { debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
@@ -19,6 +19,7 @@ import { Subscription } from 'rxjs';
 })
 export class BookSearchComponent implements OnInit, OnDestroy {
   books$ = this.store.select(getAllBooks);
+  bookConstant = BookConstant;
   instantSearchSubscription: Subscription;
   searchForm = this.fb.group({
     term: '',

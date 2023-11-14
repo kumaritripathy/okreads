@@ -4,40 +4,41 @@
       autoFocus
       matInput
       type="search"
-      placeholder="Search for books to add to your reading list"
+      [placeholder]="bookConstant.BOOK_SEARCH.PLACEHOLDER_TEXT"
       formControlName="term"
       id="searchTerm"
     />
     <button mat-icon-button matSuffix>
-      <mat-icon>search</mat-icon>
+      <mat-icon data-testing="search-button">{{bookConstant.BOOK_SEARCH.SEARCH}}</mat-icon>
     </button>
   </mat-form-field>
 </form>
 
 <ng-container *ngIf="searchTerm; else empty">
-  <div class="book-grid">
-    <div class="book" data-testing="book-item" *ngFor="let b of books$|async">
+  <div class="book-grid" data-testing="books-list">
+    <div class="book" data-testing="book-item" *ngFor="let book of books$|async">
       <div class="book--title">
-        {{ b.title }}
+        {{ book.title }}
       </div>
       <div class="book--content">
         <div class="book--content--cover">
-          <img src="{{ b.coverUrl }}" loading="lazy" alt="Book Content Loading"/>
+          <img src="{{ book.coverUrl }}" loading="lazy" alt="Book Content Loading"/>
         </div>
         <div class="book--content--info">
-          <div><strong>Author:</strong> {{ b.authors.join(',') }}</div>
-          <div><strong>Publisher:</strong> {{ b.publisher }}</div>
-          <div>
-            <strong>Published:</strong> {{ formatDate(b.publishedDate) }}
+          <div data-testing="book-author-name"><strong>Author:</strong> {{ book.authors.join(',') }}</div>
+          <div><strong>Publisher:</strong> {{ book.publisher }}</div>
+          <div data-testing="book-published-date">
+            <strong>Published:</strong> {{ formatDate(book.publishedDate) }}
           </div>
-          <p [innerHTML]="b.description"></p>
+          <p data-testing="book-description">{{book.description}}</p>
           <div>
             <button
               mat-flat-button
               color="primary"
-              (click)="addBookToReadingList(b)"
-              [disabled]="b.isAdded"
+              (click)="addBookToReadingList(book)"
+              [disabled]="book.isAdded"
               id="want_to_read" aria-label="Want to Read"
+              data-testing="add-book"
             >
               Want to Read
             </button>
@@ -50,8 +51,8 @@
 <ng-template #empty>
   <div class="empty">
     <p>
-      Try searching for a topic, for example "<a (click)="searchExample()"
-        >JavaScript</a
+      {{bookConstant.BOOK_SEARCH.SEARCH_EXAMPLE_TEXT}}<a (click)="searchExample()"
+        >{{bookConstant.BOOK_SEARCH.JAVASCRIPT}}</a
       >".
     </p>
   </div>
