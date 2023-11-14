@@ -5,7 +5,7 @@
       matInput
       type="search"
       data-testing="search-button"
-      placeholder="{{bookSearchConstant.BOOK_SEARCH.PLACEHOLDER_TEXT}}"
+      placeholder="{{bookConstant.BOOK_SEARCH.PLACEHOLDER_TEXT}}"
       formControlName="term"
       id="searchTerm"
     />
@@ -26,10 +26,10 @@
           <img src="{{ book.coverUrl }}" loading="lazy" alt="Book Content Loading"/>
         </div>
         <div class="book--content--info">
-          <div data-testing="book-author-name"><strong>Author:</strong> {{ book.authors.join(',') }}</div>
-          <div><strong>Publisher:</strong> {{ book.publisher }}</div>
+          <div data-testing="book-author-name"><strong>{{bookConstant.BOOK_SEARCH.AUTHOR}}::</strong> {{ book.authors.join(',') }}</div>
+          <div><strong>{{bookConstant.BOOK_SEARCH.PUBLISHER}}</strong> {{ book.publisher }}</div>
           <div data-testing="book-published-date">
-            <strong>Published:</strong> {{ book.publishedDate| date:'shortDate' }}
+            <strong>{{bookConstant.BOOK_SEARCH.PUBLISHED}}</strong> {{ book.publishedDate| date:'shortDate' }}
           </div>
           <p data-testing="book-description">{{book.description}}</p>
           <div>
