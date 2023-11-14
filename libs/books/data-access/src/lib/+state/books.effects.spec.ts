@@ -7,7 +7,7 @@ import { createBook, SharedTestingModule } from '@tmo/shared/testing';
 import { BooksEffects } from './books.effects';
 import * as BooksActions from './books.actions';
 import { HttpTestingController } from '@angular/common/http/testing';
-import * as BookConstant from '@tmo/shared/models';
+import {BookConstant} from '@tmo/shared/models';
 
 describe('BooksEffects', () => {
   let actions: ReplaySubject<any>;

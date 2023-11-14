@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
+import { Actions, createEffect, ofType} from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, filter, map, switchMap } from 'rxjs/operators';
 import { ReadingListItem } from '@tmo/shared/models';
 import * as ReadingListActions from './reading-list.actions';
-import { TypedAction } from '@ngrx/store/src/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { BookConstant} from '@tmo/shared/models';
 
-
 @Injectable()
-export class ReadingListEffects implements OnInitEffects {
+export class ReadingListEffects  {
   loadReadingList$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ReadingListActions.init),

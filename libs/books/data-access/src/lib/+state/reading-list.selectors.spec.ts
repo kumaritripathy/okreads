@@ -6,7 +6,7 @@ import {
 import * as ToReadSelectors from './reading-list.selectors';
 import { createBook, createReadingListItem } from '@tmo/shared/testing';
 
-describe('ReadingList Selectors', () => {
+describe('Reading sList Selectors', () => {
   let state;
   beforeEach(() => {
     state = {
