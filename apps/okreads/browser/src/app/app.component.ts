@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { okreadsConstant } from '@tmo/shared/models';
+import { BookConstant } from '@tmo/shared/models';
 
 @Component({
   selector: 'tmo-root',
@@ -7,5 +7,5 @@ import { okreadsConstant } from '@tmo/shared/models';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  readonly landingConstant = okreadsConstant;
+  bookConstant = BookConstant;
 }

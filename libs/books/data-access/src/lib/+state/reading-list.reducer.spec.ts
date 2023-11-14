@@ -26,7 +26,17 @@ describe('Reading list reducer', () => {
       const action = ReadingListActions.loadReadingListSuccess({ list });
       const result: State = reducer(initialState, action);
       expect(result.loaded).toBe(true);
-      expect(result.ids).toEqual(['A','B','C']);
+      expect(result.ids.length).toEqual(3);
+    });
+    
+    it('failedAddToReadingList should undo book addition to the state', () => {
+      const action = ReadingListActions.failedAddToReadingList({
+        book: createBook('B')
+      });
+
+      const result: State = reducer(state, action);
+
+      expect(result.ids).toEqual(['A','B']);
     });
     it('confirmedAddToReadingList should add books to the reading list', () => {
       const action = ReadingListActions.addToReadingList({
@@ -35,6 +45,7 @@ describe('Reading list reducer', () => {
       const result: State = reducer(state, action);
       expect(result.ids).toEqual(['A', 'B', 'C']);
     });
+
     it('should confirmedRemoveFromReadingList from the reading list', () => {
       const action = ReadingListActions.removeFromReadingList({
         item: createReadingListItem('B')

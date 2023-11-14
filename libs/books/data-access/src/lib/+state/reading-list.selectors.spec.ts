@@ -37,11 +37,10 @@ describe('Reading sList Selectors', () => {
   describe('Books Selectors', () => {
     it('getReadingList() should return the list of Books', () => {
       const results = ToReadSelectors.getReadingList(state);
-
       expect(results.length).toBe(3);
       expect(results.map(x => x.bookId)).toEqual(['A', 'B', 'C']);
     });
-
+    
     it("getTotalUnread() should return the current 'loaded' status", () => {
       const result = ToReadSelectors.getTotalUnread(state);
 

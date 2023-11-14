@@ -7,7 +7,7 @@ import { HttpTestingController } from '@angular/common/http/testing';
 import { SharedTestingModule } from '@tmo/shared/testing';
 import { ReadingListEffects } from './reading-list.effects';
 import * as ReadingListActions from './reading-list.actions';
-import { okreadsConstant } from '@tmo/shared/models';
+import { BookConstant } from '@tmo/shared/models';
 
 describe('ToReadEffects', () => {
   let actions: ReplaySubject<any>;
@@ -38,7 +38,7 @@ describe('ToReadEffects', () => {
         );
         done();
       });
-      httpMock.expectOne(okreadsConstant.API.READING_LIST_API).flush([]);
+      httpMock.expectOne(BookConstant.API.READING_LIST_API).flush([]);
     });
   });
 });

@@ -5,11 +5,11 @@
       matInput
       type="search"
       data-testing="search-button"
-      placeholder="{{bookSearchConstant.BOOK_SEARCH.PLACEHOLDER_TEXT}}"
+      placeholder="{{ bookConstant.BOOK_SEARCH.PLACEHOLDER_TEXT}}"
       formControlName="term"
     />
     <button aria-label="search" mat-icon-button matSuffix>
-      <mat-icon>{{bookSearchConstant.BOOK_SEARCH.SEARCH}}</mat-icon>
+      <mat-icon>{{ bookConstant.BOOK_SEARCH.SEARCH}}</mat-icon>
     </button>
   </mat-form-field>
 </form>
@@ -25,10 +25,10 @@
           <img src="{{ bookItem.coverUrl }}" loading="lazy" alt="Book Content Loading"/>
         </div>
         <div class="book--content--info">
-          <div><strong>{{bookSearchConstants.BOOK_SEARCH.AUTHOR}}:</strong> {{ bookItem.authors.join(',') }}</div>
-          <div><strong>{{bookSearchConstants.BOOK_SEARCH.PUBLISHER}}:</strong> {{ bookItem.publisher }}</div>
+          <div><strong>{{ bookConstant.BOOK_SEARCH.AUTHOR}}:</strong> {{ bookItem.authors.join(',') }}</div>
+          <div><strong>{{ bookConstant.BOOK_SEARCH.PUBLISHER}}:</strong> {{ bookItem.publisher }}</div>
           <div>
-            <strong>{{bookSearchConstants.BOOK_SEARCH.PUBLISHED}}:</strong> {{ bookItem.publishedDate | date:'shortDate'}}
+            <strong>{{ bookConstant.BOOK_SEARCH.PUBLISHED}}:</strong> {{ bookItem.publishedDate | date:'shortDate'}}
           </div>
           <p>{{bookItem.description}}</p>
           <div>
@@ -40,7 +40,7 @@
               data-testing="add-book"
               id="want_to_read" aria-label="Want to Read"
             >
-            {{bookSearchConstants.BOOK_SEARCH.WANT_TO_READ}}
+            {{ bookConstant.BOOK_SEARCH.WANT_TO_READ}}
             </button>
           </div>
         </div>
@@ -51,8 +51,8 @@
 <ng-template #empty>
   <div class="empty">
     <p>
-      {{bookSearchConstants.BOOK_SEARCH.SEARCH_EXAMPLE_TEXT}}<a aria-label="JavaScript" (click)="searchExample()"
-        >{{bookSearchConstants.BOOK_SEARCH.JAVASCRIPT}}</a
+      {{ bookConstant.BOOK_SEARCH.SEARCH_EXAMPLE_TEXT}}<a aria-label="JavaScript" (click)="searchExample()"
+        >{{ bookConstant.BOOK_SEARCH.JAVASCRIPT}}</a
       >".
     </p>
   </div>
