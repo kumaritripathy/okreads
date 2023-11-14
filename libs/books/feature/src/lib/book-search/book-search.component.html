@@ -1,10 +1,11 @@
-<form [formGroup]="searchForm" id="searchForm" (submit)="searchBooks()">
+<form [formGroup]="searchForm" (ngSubmit)="searchBooks()">
   <mat-form-field floatLabel="never">
     <input
       autoFocus
       matInput
       type="search"
-      [placeholder]="bookConstant.BOOK_SEARCH.PLACEHOLDER_TEXT"
+      data-testing="search-button"
+      placeholder="{{bookSearchConstant.BOOK_SEARCH.PLACEHOLDER_TEXT}}"
       formControlName="term"
       id="searchTerm"
     />
@@ -28,7 +29,7 @@
           <div data-testing="book-author-name"><strong>Author:</strong> {{ book.authors.join(',') }}</div>
           <div><strong>Publisher:</strong> {{ book.publisher }}</div>
           <div data-testing="book-published-date">
-            <strong>Published:</strong> {{ formatDate(book.publishedDate) }}
+            <strong>Published:</strong> {{ book.publishedDate| date:'shortDate' }}
           </div>
           <p data-testing="book-description">{{book.description}}</p>
           <div>
@@ -40,7 +41,7 @@
               id="want_to_read" aria-label="Want to Read"
               data-testing="add-book"
             >
-              Want to Read
+            {{bookConstant.BOOK_SEARCH.WANT_TO_READ}}
             </button>
           </div>
         </div>

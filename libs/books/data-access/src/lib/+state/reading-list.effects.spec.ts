@@ -32,7 +32,6 @@ describe('ToReadEffects', () => {
     it('should initialize the reading list items', done => {
       actions = new ReplaySubject();
       actions.next(ReadingListActions.init());
-
       effects.loadReadingList$.subscribe(action => {
         expect(action).toEqual(
           ReadingListActions.loadReadingListSuccess({ list: [] })

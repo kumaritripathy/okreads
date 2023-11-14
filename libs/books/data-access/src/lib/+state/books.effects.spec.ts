@@ -8,7 +8,6 @@ import { BooksEffects } from './books.effects';
 import * as BooksActions from './books.actions';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { BookConstant } from '@tmo/shared/models';
-
 describe('BooksEffects', () => {
   let actions: ReplaySubject<any>;
   let effects: BooksEffects;
@@ -32,7 +31,6 @@ describe('BooksEffects', () => {
     it('should load books', done => {
       actions = new ReplaySubject();
       actions.next(BooksActions.searchBooks({ term: '' }));
-
       effects.searchBooks$.subscribe(action => {
         expect(action).toEqual(
           BooksActions.searchBooksSuccess({ books: [createBook('A')] })
