@@ -29,7 +29,7 @@ describe('BooksEffects', () => {
   });
 
   describe('Load Books', () => {
-    it('should work', done => {
+    it('should load books', done => {
       actions = new ReplaySubject();
       actions.next(BooksActions.searchBooks({ term: '' }));
 

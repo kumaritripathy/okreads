@@ -3,12 +3,12 @@ import {
   createReadingListItem,
   SharedTestingModule,
 } from '@tmo/shared/testing';
- 
 import { ReadingListComponent } from './reading-list.component';
 import { BooksFeatureModule } from '@tmo/books/feature';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { getReadingList, removeFromReadingList } from '@tmo/books/data-access';
-import { UndoActionConstant } from '@tmo/shared/models';
+import { BookConstant } from '@tmo/shared/models';
+
  
  
 describe('ReadingListComponent', () => {
@@ -80,7 +80,7 @@ describe('ReadingListComponent', () => {
       '[data-testing="empty-text"]'
     );
     expect(emptyText.innerHTML.trim()).toBe(
-      UndoActionConstant.READING_LIST.EMPTY_LIST_TEXT
+      BookConstant.READING_LIST.EMPTY_LIST_TEXT
     );
   });
 });

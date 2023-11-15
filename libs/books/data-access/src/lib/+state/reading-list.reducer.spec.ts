@@ -8,7 +8,7 @@ import {
 import { createBook, createReadingListItem } from '@tmo/shared/testing';
  
 describe('Reading List Reducer', () => {
-  describe('validate Books actions', () => {
+  describe('Validate Reading list actions', () => {
     let state: State;
     beforeEach(() => {
       state = readingListAdapter.setAll(
@@ -17,7 +17,7 @@ describe('Reading List Reducer', () => {
       );
     });
  
-    it('should loadBooksSuccess load books from reading list', () => {
+    it('Should display the added reading list when added', () => {
       const list = [
         createReadingListItem('A'),
         createReadingListItem('B'),

@@ -31,7 +31,7 @@ describe('ToReadEffects', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  describe('should load Reading List', () => {
+  describe('loadReadingList', () => {
     it('should initialize the reading list items', done => {
       actions = of(ReadingListActions.init());
       effects.loadReadingList$.subscribe(action => {
@@ -85,7 +85,7 @@ describe('ToReadEffects', () => {
     });
   });
 
-  describe('removeBook$', () => {
+  describe('removeBook', () => {
     it('should dispatch confirmedRemoveFromReadingList  from the reading list', (done) => {
       const item = createReadingListItem('A');
       actions = of(
@@ -130,7 +130,7 @@ describe('ToReadEffects', () => {
     });
   });
 
-  describe('undoAddBook$', () => {
+  describe('undoAddBook', () => {
     it('should undo addition of book when showSnackbar action is dispatched', (done) => {
       const book: Book = { ...createBook('A'), isAdded: true };
       actions = of(
@@ -152,7 +152,7 @@ describe('ToReadEffects', () => {
     });
   });
 
-  describe('undoRemoveBook$', () => {
+  describe('undoRemoveBook', () => {
     it('should undo removal of book when showSnackbar action is dispatched', (done) => {
       const item: ReadingListItem = createReadingListItem('A');
       actions = of(

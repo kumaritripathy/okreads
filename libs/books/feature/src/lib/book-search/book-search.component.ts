@@ -25,10 +25,7 @@ export class BookSearchComponent {
     private readonly formBuilder: FormBuilder
   ) {}
 
-  get searchTerm(): string {
-    return this.searchForm.value.term;
-  }
-
+ 
   addBookToReadingList(book: Book) {
     this.store.dispatch(addToReadingList({ book, showSnackBar:true}));
   }
