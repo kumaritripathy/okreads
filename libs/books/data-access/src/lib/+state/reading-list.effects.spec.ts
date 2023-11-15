@@ -29,7 +29,7 @@ describe('ToReadEffects', () => {
   });
 
   describe('loadReadingList', () => {
-    it('should work', done => {
+    it('should initialize the reading list items', done => {
       actions = new ReplaySubject();
       actions.next(ReadingListActions.init());
       effects.loadReadingList$.subscribe(action => {
