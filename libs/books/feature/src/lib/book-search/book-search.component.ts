@@ -31,10 +31,7 @@ export class BookSearchComponent implements OnInit, OnDestroy {
     private readonly formBuilder: FormBuilder
   ) {}
 
-  get searchTerm(): string {
-    return this.searchForm.value.term;
-  }
-
+ 
   ngOnInit(): void {
     this.onSearchBookChange();
   }
@@ -44,7 +41,7 @@ export class BookSearchComponent implements OnInit, OnDestroy {
       this.instantSearchSubscription = this.searchForm.controls.term.valueChanges
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe((change) => {
-        return this.store.dispatch(searchBooks({ term: this.searchTerm }));
+        return this.store.dispatch(searchBooks({ term: this.searchForm.value.term}));
       });
     } 
   }

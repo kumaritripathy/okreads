@@ -17,11 +17,11 @@
         [attr.aria-label]="'Remove ' + book.title + ' from reading list'"
         (click)="removeFromReadingList(book)"
       >
-        <mat-icon>{{bookConstant.READING_LIST.REMOVE_CIRCLE}}</mat-icon>
+        <mat-icon data-testing="close-reading-list">{{bookConstant.READING_LIST.REMOVE_CIRCLE}}</mat-icon>
       </button>
     </div>
   </div>
 </ng-container>
 <ng-template #empty>
-  <p class="empty">{{bookConstant.READING_LIST.EMPTY_LIST_TEXT}}.</p>
+  <p data-testing="empty-text" class="empty">{{bookConstant.READING_LIST.EMPTY_LIST_TEXT}}.</p>
 </ng-template>
