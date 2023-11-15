@@ -26,9 +26,6 @@ export class BookSearchComponent{
     private readonly formBuilder: FormBuilder
   ) {}
 
-  get searchTerm(): string {
-    return this.searchForm.value.term;
-  }
 
   addBookToReadingList(book: Book) {
     this.store.dispatch(addToReadingList({ book }));
@@ -41,7 +38,7 @@ export class BookSearchComponent{
 
   searchBooks() {
     if (this.searchForm.value.term) {
-    this.store.dispatch(searchBooks({ term: this.searchTerm }));
+    this.store.dispatch(searchBooks({ term: this.searchForm.value.term }));
     } else {
       this.store.dispatch(clearSearch());
     }

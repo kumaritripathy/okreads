@@ -15,26 +15,26 @@
 
 <ng-container *ngIf="searchForm.value.term; else empty">
   <div class="book-grid">
-    <div class="book" data-testing="book-item" *ngFor="let bookItem of books$|async">
+    <div class="book" data-testing="book-item" *ngFor="let book of books$|async">
       <div class="book--title">
-        {{ bookItem.title }}
+        {{ book.title }}
       </div>
       <div class="book--content">
         <div class="book--content--cover">
-          <img src="{{ bookItem.coverUrl }}" loading="lazy" alt="Book Content Loading"/>
+          <img src="{{ book.coverUrl }}" loading="lazy" alt="Book Content Loading"/>
         </div>
         <div class="book--content--info">
-          <div><strong>{{bookConstant.BOOK_SEARCH.AUTHOR}}:</strong> {{ bookItem.authors.join(',') }}</div>
-          <div><strong>{{bookConstant.BOOK_SEARCH.PUBLISHER}}:</strong> {{ bookItem.publisher }}</div>
+          <div><strong>{{bookConstant.BOOK_SEARCH.AUTHOR}}:</strong> {{ book.authors.join(',') }}</div>
+          <div><strong>{{bookConstant.BOOK_SEARCH.PUBLISHER}}:</strong> {{ book.publisher }}</div>
           <div>
-            <strong>{{bookConstant.BOOK_SEARCH.PUBLISHED}}:</strong> {{ bookItem.publishedDate | date:'shortDate'}}
+            <strong>{{bookConstant.BOOK_SEARCH.PUBLISHED}}:</strong> {{ book.publishedDate | date:'shortDate'}}
           </div>
-          <p>{{bookItem.description}}</p>
+          <p>{{book.description}}</p>
           <div>
             <button
               mat-flat-button
               color="primary"
-              (click)="addBookToReadingList(b)"
+              (click)="addBookToReadingList(book)"
               [disabled]="book.isAdded || book.finished"
               id="want_to_read" aria-label="Want to Read"
               data-testing="add-book"
