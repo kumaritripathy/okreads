@@ -26,6 +26,7 @@ export const BookConstant = {
     ERROR: 'Something went wrong',
     READING_LIST_IMG_ALT:"Readlist Loading",
     BOOKSEARCH_IMG_ALT:"Book Content Loading",
+    WANT_TO_READ:"Want to Read",
     SNACKBAR_CONSTANTS: {
       BOOK_ADDED_TEXT: 'is added to the reading list!',
       BOOK_REMOVED_TEXT: 'is removed from the reading list!',

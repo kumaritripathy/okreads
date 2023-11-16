@@ -30,8 +30,8 @@ export class ReadingListEffects  {
       concatMap(({ book }) =>
         this.http.post(BookConstant.API.READING_LIST_API, book).pipe(
           map(() => ReadingListActions.confirmedAddToReadingList({ book })),
-          catchError(() =>
-            of(ReadingListActions.failedAddToReadingList({ book }))
+          catchError((error) =>
+            of(ReadingListActions.failedAddToReadingList({ error }))
           )
         )
       )
