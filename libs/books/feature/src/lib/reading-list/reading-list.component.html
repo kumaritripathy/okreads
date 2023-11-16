@@ -2,7 +2,7 @@
   <div class="reading-list-item" data-testing="reading-item" *ngFor="let book of readingList$ | async">
     <div>
       <img data-testing="book-cover"
-      class="reading-list-item--cover" [src]="book.coverUrl" loading="lazy" alt="Readlist Loading" />
+      class="reading-list-item--cover" [src]="book.coverUrl" loading="lazy" alt="Readlist Loading" aria-hidden="true" />
     </div>
     <div class="reading-list-item--details">
       <strong class="reading-list-item--details--title" data-testing="book-title">{{ book.title }}</strong>
