@@ -27,7 +27,7 @@
 
 1. Added "alt" attribute for img tags to provide alternate text if the image fails to load.It is added in book-search.component.html and reading-list.component.html files.
 
-2. Button have clear aria-label and that all graphical control have accurate.
+2. Button should have inner text describing action and role defined
 
 3. Added aria-label to link in book.component.html file ( Try searching for a topic, for example Javascript").
  3.1 ARIA helps you provide a good experience for users who use screen readers (software that outputs text as audio or braille) and other types of assistive technology (AT).
