@@ -19,7 +19,7 @@ export const addToReadingList = createAction(
 
 export const failedAddToReadingList = createAction(
   '[Reading List API] Failed add to list',
-  props<{ book: Book }>()
+  props<{ error: string }>()
 );
 
 export const confirmedAddToReadingList = createAction(

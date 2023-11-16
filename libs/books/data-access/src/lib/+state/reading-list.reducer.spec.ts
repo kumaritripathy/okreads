@@ -29,14 +29,14 @@ describe('Reading list reducer', () => {
       expect(result.ids.length).toEqual(3);
     });
     
-    it('failedAddToReadingList should undo book addition to the state', () => {
+    it('failedAddToReadingList should update state with error message and undo book addition to the reading list', () => {
+      const error = 'Failed to add book to the reading list';
       const action = ReadingListActions.failedAddToReadingList({
-        book: createBook('B')
+        error
       });
-
       const result: State = reducer(state, action);
-
-      expect(result.ids).toEqual(['A','B']);
+      expect(result.ids).toEqual(['A', 'B']);
+      expect(result.error).toEqual(error);
     });
     it('confirmedAddToReadingList should add books to the reading list', () => {
       const action = ReadingListActions.addToReadingList({

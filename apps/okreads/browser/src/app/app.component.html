@@ -9,6 +9,7 @@
             mat-button
             (click)="drawer.toggle()"
             id="read-list-btn" aria-label="Reading List"
+            role="button"
           >
           {{bookConstant.READING_LIST_TEXT}}
             <tmo-total-count></tmo-total-count>
@@ -24,7 +25,7 @@
     <div class="reading-list-container" data-testing="reading-list-container">
       <h2>
         {{bookConstant.MY_READING_LIST}}
-        <button mat-icon-button (click)="drawer.close()" id="close-btn" aria-label="Close">
+        <button mat-icon-button (click)="drawer.close()" id="close-btn" role="button" aria-label="Close">
           <mat-icon>{{bookConstant.CLOSE}}</mat-icon>
         </button>
       </h2>

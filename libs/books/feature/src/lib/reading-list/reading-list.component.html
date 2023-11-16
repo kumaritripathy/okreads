@@ -1,7 +1,7 @@
 <ng-container *ngIf="(readingList$ | async).length > 0; else empty">
   <div class="reading-list-item" *ngFor="let book of readingList$ | async">
     <div>
-      <img class="reading-list-item--cover" [src]="book.coverUrl" loading="lazy" alt="Readlist Loading" aria-hidden="true"/>
+      <img class="reading-list-item--cover" [src]="book.coverUrl" loading="lazy" [alt]="bookConstant.READING_LIST_IMG_ALT" aria-hidden="true"/>
     </div>
     <div class="reading-list-item--details">
       <strong class="reading-list-item--details--title">{{ book.title }}</strong>
@@ -14,7 +14,8 @@
         mat-icon-button
         data-testing="remove-book"
         color="warn"
-        [attr.aria-label]="'Remove ' + b.title + ' from reading list'"
+        [attr.aria-label]="'Remove ' + book.title + ' from reading list'"
+        role="button"
         (click)="removeFromReadingList(b)"
       >
         <mat-icon data-testing="close-reading-list">{{bookConstant.READING_LIST.REMOVE_CIRCLE}}</mat-icon>

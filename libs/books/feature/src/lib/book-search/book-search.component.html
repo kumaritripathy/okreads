@@ -8,7 +8,7 @@
       placeholder="{{ bookConstant.BOOK_SEARCH.PLACEHOLDER_TEXT}}"
       formControlName="term"
     />
-    <button aria-label="search" mat-icon-button matSuffix>
+    <button aria-label="search" role="button" mat-icon-button matSuffix>
       <mat-icon>{{ bookConstant.BOOK_SEARCH.SEARCH}}</mat-icon>
     </button>
   </mat-form-field>
@@ -22,7 +22,7 @@
       </div>
       <div class="book--content">
         <div class="book--content--cover">
-          <img src="{{ book.coverUrl }}" loading="lazy" alt="Book Content Loading" aria-hidden="true"/>
+          <img src="{{ book.coverUrl }}" loading="lazy" [alt]="bookConstant.BOOKSEARCH_IMG_ALT" aria-hidden="true"/>
         </div>
         <div class="book--content--info">
           <div><strong>{{ bookConstant.BOOK_SEARCH.AUTHOR}}:</strong> {{ book.authors.join(',') }}</div>
@@ -39,6 +39,7 @@
               [disabled]="book.isAdded"
               data-testing="add-book"
               id="want_to_read" aria-label="Want to Read"
+              role="button"
             >
             {{ bookConstant.BOOK_SEARCH.WANT_TO_READ}}
             </button>

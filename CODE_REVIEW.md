@@ -20,21 +20,22 @@
 8. We can use async pipe to iterate booklist items in html.Async pipe can handle subscription and unsubscription both {{book?.name}}.
 9. We can also define store globally,no need to add in ngOnInit.books\$ = this.store.select(getAllBooks)
 10. Removed from p tag [innerHTML]="bookItem.description".
-11. Increased text colour from gray40 to gray80 so that contrast ratio between foreground and background colours will be adjusted.
+11. Address color contract issue - Changing gray40 to gray80, so that the contrast ratio between foreground and background colors will be adjusted.
 12. Added darker effects for "reading list" and "want to read "so that it will provide hover effect to the buttons.
 
 ## Accessibility Issues (Lighthouse Issues)
 
-1. Added "alt" attribute for img tags to provide alternate text if the image fails to load.It is added in book-search.component.html and reading-list.component.html files.
+1. The functional image should have alt text to enable the screen reader to read the functionality of the image.
 
-2. Button should have inner text describing action and role defined
+2. Button should have inner text describing action and role defined.
 
 3. Added aria-label to link in book.component.html file ( Try searching for a topic, for example Javascript").
  3.1 ARIA helps you provide a good experience for users who use screen readers (software that outputs text as audio or braille) and other types of assistive technology (AT).
 
 ## Data Access Layer (NgRx Issues)
-
 1. ngrxOnInitEffects is lifecycle method that would be called after the ComponentStore is instantiated, or potentially after the ComponentStore has been initialized which could be done eagerly or lazily.Removed ngrxOnInitEffects() as we don't want to initialize Reading list component as soon as component loads.
+
+2. ngrxOnInitEffects - is not required.
 
 ## Unit Testing
 

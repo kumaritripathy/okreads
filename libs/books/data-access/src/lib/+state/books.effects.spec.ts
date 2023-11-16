@@ -8,7 +8,7 @@ import { BooksEffects } from './books.effects';
 import * as BooksActions from './books.actions';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { BookConstant } from '@tmo/shared/models';
-describe('BooksEffects', () => {
+describe('Books Effects', () => {
   let actions: ReplaySubject<any>;
   let effects: BooksEffects;
   let httpMock: HttpTestingController;

@@ -4,7 +4,7 @@ import { createBook } from '@tmo/shared/testing';
 
 describe('Books Reducer', () => {
   describe('validate  Books actions', () => {
-    it(' should loadBooksSuccess  and return set the list of Books', () => {
+    it('should loadBooksSuccess  and return set the list of Books', () => {
       const books = [createBook('A'), createBook('B'), createBook('C')];
       const action = BooksActions.searchBooksSuccess({ books });
       const result: State = reducer(initialState, action);

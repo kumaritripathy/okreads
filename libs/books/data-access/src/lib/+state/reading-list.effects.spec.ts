@@ -9,7 +9,7 @@ import { ReadingListEffects } from './reading-list.effects';
 import * as ReadingListActions from './reading-list.actions';
 import { BookConstant } from '@tmo/shared/models';
 
-describe('ToReadEffects', () => {
+describe('Reading list effects', () => {
   let actions: ReplaySubject<any>;
   let effects: ReadingListEffects;
   let httpMock: HttpTestingController;
@@ -28,7 +28,7 @@ describe('ToReadEffects', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  describe('loadReadingList', () => {
+  describe('Load reading list', () => {
     it('should initialize the reading list items', done => {
       actions = new ReplaySubject();
       actions.next(ReadingListActions.init());
