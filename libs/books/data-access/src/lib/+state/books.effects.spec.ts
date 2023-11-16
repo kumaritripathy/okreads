@@ -7,8 +7,8 @@ import { createBook, SharedTestingModule } from '@tmo/shared/testing';
 import { BooksEffects } from './books.effects';
 import * as BooksActions from './books.actions';
 import { HttpTestingController } from '@angular/common/http/testing';
-
-describe('BooksEffects', () => {
+import { BookConstant } from '@tmo/shared/models';
+describe('Books Effects', () => {
   let actions: ReplaySubject<any>;
   let effects: BooksEffects;
   let httpMock: HttpTestingController;
@@ -27,19 +27,17 @@ describe('BooksEffects', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  describe('loadBooks$', () => {
-    it('should work', done => {
+  describe('Load Books', () => {
+    it('should load books', done => {
       actions = new ReplaySubject();
       actions.next(BooksActions.searchBooks({ term: '' }));
-
       effects.searchBooks$.subscribe(action => {
         expect(action).toEqual(
           BooksActions.searchBooksSuccess({ books: [createBook('A')] })
         );
         done();
       });
-
-      httpMock.expectOne('/api/books/search?q=').flush([createBook('A')]);
+      httpMock.expectOne(BookConstant.API.BOOKS_SEARCH_API).flush([createBook('A')]);
     });
   });
 });

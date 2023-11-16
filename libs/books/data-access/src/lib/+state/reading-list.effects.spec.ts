@@ -7,8 +7,9 @@ import { HttpTestingController } from '@angular/common/http/testing';
 import { SharedTestingModule } from '@tmo/shared/testing';
 import { ReadingListEffects } from './reading-list.effects';
 import * as ReadingListActions from './reading-list.actions';
+import { BookConstant } from '@tmo/shared/models';
 
-describe('ToReadEffects', () => {
+describe('Reading list effects', () => {
   let actions: ReplaySubject<any>;
   let effects: ReadingListEffects;
   let httpMock: HttpTestingController;
@@ -27,19 +28,17 @@ describe('ToReadEffects', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  describe('loadReadingList$', () => {
-    it('should work', done => {
+  describe('Load reading list', () => {
+    it('should initialize the reading list items', done => {
       actions = new ReplaySubject();
       actions.next(ReadingListActions.init());
-
       effects.loadReadingList$.subscribe(action => {
         expect(action).toEqual(
           ReadingListActions.loadReadingListSuccess({ list: [] })
         );
         done();
       });
-
-      httpMock.expectOne('/api/reading-list').flush([]);
+      httpMock.expectOne(BookConstant.API.READING_LIST_API).flush([]);
     });
   });
 });
