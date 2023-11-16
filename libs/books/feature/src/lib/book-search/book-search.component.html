@@ -21,7 +21,7 @@
       </div>
       <div class="book--content">
         <div class="book--content--cover">
-          <img src="{{ book.coverUrl }}" loading="lazy" alt="Book Content Loading"/>
+          <img src="{{ book.coverUrl }}" loading="lazy" alt="Book Content Loading" aria-hidden="true"/>
         </div>
         <div class="book--content--info">
           <div><strong>{{bookConstant.BOOK_SEARCH.AUTHOR}}:</strong> {{ book.authors.join(',') }}</div>
